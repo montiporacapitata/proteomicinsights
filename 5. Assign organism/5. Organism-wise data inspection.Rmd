@@ -1,0 +1,256 @@
+---
+title: "5. Protein group inspection"
+author: "Permentier"
+date: "2024-11-21"
+output: html_document
+---
+
+# Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(stringr)
+  library(ggVennDiagram)
+  library(gridExtra)
+  library(tibble)
+})
+```
+
+# Load experimental design, protein data and sequence database
+
+Experimental design (2 treatments x 6 genotypes x 3 replicates = 36 samples):
+```{r}
+design <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/2. Experimental design and metadata/DIA_metadata.csv")
+dim(design)
+colnames(design)
+```
+
+Load the sequence database:
+```{r}
+sequence_DB <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/3. Sequence_database/sequence_database.csv")
+dim(sequence_DB)
+colnames(sequence_DB)
+```
+Load the protein data in wide format:
+```{r}
+pg_matrix_wide <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/4. Protein ID and quantification/pg_matrix_wide.csv")
+dim(pg_matrix_wide)
+colnames(pg_matrix_wide)
+```
+
+Load the protein data in long format:
+```{r}
+pg_matrix_long <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/4. Protein ID and quantification/pg_matrix_long.csv")
+dim(pg_matrix_long)
+colnames(pg_matrix_long)
+```
+
+# Assign organisms to protein group identifications
+
+DIA-NN quantifies proteins and groups protein identifications that it isn't able to distinguish between together into protein groups. Every protein can be a M. capitata, Cladocopium sp. or cRAP protein. This code is used to match the protein groups to the right organism(s).
+```{r}
+pg_organism <- pg_matrix_wide %>%
+  mutate(Protein_group_members = Protein_group) %>%
+  separate_rows(Protein_group,sep=";") %>%
+  dplyr::rename(Protein = Protein_group) %>%
+  dplyr::select(Protein,Protein_group_members) %>%
+  mutate(Organism = ifelse(grepl("Montipora_capitata",Protein),"Montipora capitata",
+                           ifelse(grepl("cRAP",Protein),"cRAP",
+                                  ifelse(grepl("Symb",Protein),"Cladocopium","Code failure")))) %>%
+  group_by(Protein_group_members) %>%
+  summarize(Organism_list = paste(unique(Organism), collapse = ";")) %>%
+  mutate(Organism = ifelse(grepl(";",Organism_list),"uncertain",Organism_list)) %>%
+  dplyr::select(Protein_group_members,Organism) %>%
+  dplyr::rename(Protein_group = Protein_group_members) %>%
+  mutate(Organism = as.factor(Organism)) %>%
+  distinct()
+colnames(pg_organism)
+unique(pg_organism$Organism)
+```
+Wide format.
+```{r}
+pg_matrix_wide_organism <- pg_organism %>% 
+  left_join(pg_matrix_wide,by = "Protein_group")
+dim(pg_matrix_wide_organism)
+colnames(pg_matrix_wide_organism)
+```
+
+Long format.
+```{r}
+pg_matrix_long_organism <- pg_organism %>% 
+  left_join(pg_matrix_long,by = "Protein_group")
+dim(pg_matrix_long_organism)
+colnames(pg_matrix_long_organism)
+```
+
+# Identifications in every sample bar plots
+
+Number of protein groups per organism per sample.
+```{r}
+prot_organism_sample_count <- pg_matrix_long_organism %>%
+  filter(!is.na(normalised_MaxLFQ_quantity)) %>%
+  group_by(Sample_ID,Organism) %>%
+  summarize(ProteinCount = sum(!is.na(normalised_MaxLFQ_quantity)))
+
+composition_counts <- ggplot(prot_organism_sample_count %>% 
+                        filter(Organism != "cRAP") %>%
+                        mutate(Organism = factor(Organism, levels = c("Montipora capitata","Cladocopium"))),
+                      aes(x=Sample_ID,y=ProteinCount,fill=Organism)) +
+  geom_bar(
+    stat = "identity",
+    position = "stack",
+    width=0.6,
+    color="black") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  scale_fill_manual(values = c("Montipora capitata" = "white",
+                               "Cladocopium" = "black")) +
+  theme_minimal() +
+  labs(y = "Number of protein group identifications by sample") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 0.5)) +
+  theme(panel.grid = element_blank())
+composition_counts
+```
+
+Signal intensity distribution per sample.
+```{r}
+prot_organism_sample_percentage <- pg_matrix_long_organism %>%
+  filter(!is.na(normalised_MaxLFQ_quantity)) %>%
+  group_by(Sample_ID,Organism) %>%
+  summarize(Itensity_sum = sum(log2(normalised_MaxLFQ_quantity))) %>%
+  group_by(Sample_ID) %>%
+  mutate(Total = sum(Itensity_sum),
+         Percentage = (Itensity_sum / Total) * 100) %>%
+  ungroup() #%>%
+  #mutate(Sample_ID = ifelse(grepl("C_", Sample_ID), 
+                          #  sub("C_", "H_", Sample_ID), 
+                          #  sub("S_", "L_", Sample_ID)))
+
+composition_intensities <- ggplot(prot_organism_sample_percentage %>% 
+                        filter(Organism != "cRAP") %>%
+                        mutate(Organism = factor(Organism, levels = c("Montipora capitata","Cladocopium"))),
+                      aes(x=Sample_ID,y=Percentage,fill=Organism)) +
+  geom_bar(
+    stat = "identity",
+    position = "stack",
+    width=0.6,
+    color="black") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  scale_fill_manual(values = c("Montipora capitata" = "white",
+                               "Cladocopium" = "black")) +
+  theme_minimal() +
+  labs(y = "Relative % protein signal intensity by sample",
+       x = "Sample") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 0.5)) +
+  theme(panel.grid = element_blank())
+composition_intensities
+```
+
+# Inspect number of protein groups
+
+Which protein groups contain more than one protein?
+```{r}
+pg_N_inspection <- pg_matrix_wide %>%
+  select(Protein_group) %>%
+  mutate(Protein_group_N = str_count(Protein_group, ";") + 1)
+
+N_single = dim(pg_N_inspection %>%
+                 filter(Protein_group_N == 1))[1]
+N_total = dim(pg_matrix_wide)[1]
+# Number of protein groups with one single protein
+paste(N_total-N_single,'/',N_total)
+# Percentage of protein groups with more proteins
+paste(round((N_total-N_single)/N_total*100,digits=2),'%')
+```
+
+How big can the protein groups get?
+```{r}
+pg_N_inspection %>%
+  filter(Protein_group_N > 1) %>%
+  ggplot(aes(x = Protein_group_N)) +
+  geom_histogram(binwidth = 1) +
+  labs(
+    title = paste(N_total-N_single,'/',N_total, "protein groups with more than one protein"),
+    x = "Number of proteins in Group",
+    y = "Number"
+  ) +
+  theme_minimal()
+```
+
+# Unique proteins
+
+```{r}
+pg_venn <- pg_matrix_long_organism %>%
+  left_join(design %>% select(Sample_ID,Treatment,Genotype),by="Sample_ID")
+```
+
+Venn diagrams.
+```{r}
+Mcap_sets_condition <- pg_venn %>%
+  filter(!is.na(normalised_MaxLFQ_quantity),Organism=="Montipora capitata") %>%
+  group_by(Treatment) %>%
+  summarize(proteins = list(unique(Protein_group))) %>%
+  ungroup() %>%
+  deframe()
+
+venn_Mcap_condition <- ggVennDiagram(Mcap_sets_condition, label = "count",label_alpha = 0) +
+  scale_fill_gradient(low = "lightblue", high = "royalblue3")
+
+Mcap_sets_Genotype <- pg_venn %>%
+  filter(!is.na(normalised_MaxLFQ_quantity),Organism=="Cladocopium") %>%
+  group_by(Genotype) %>%
+  summarize(proteins = list(unique(Protein_group))) %>%
+  ungroup() %>%
+  deframe()
+
+venn_Mcap_Genotype <- ggVennDiagram(Mcap_sets_Genotype, label = "count",label_alpha = 0) +
+  scale_fill_gradient(low = "lightblue", high = "royalblue3")
+
+symb_sets_condition <- pg_venn %>%
+  filter(!is.na(normalised_MaxLFQ_quantity),Organism != "Montipora capitata") %>%
+  group_by(Treatment) %>%
+  summarize(proteins = list(unique(Protein_group))) %>%
+  ungroup() %>%
+  deframe()
+
+venn_symb_condition <- ggVennDiagram(symb_sets_condition, label = "count",label_alpha = 0) +
+  scale_fill_gradient(low = "lightblue", high = "royalblue3")
+
+symb_sets_Genotype <- pg_venn %>%
+  filter(!is.na(normalised_MaxLFQ_quantity),Organism != "Cladocopium") %>%
+  group_by(Genotype) %>%
+  summarize(proteins = list(unique(Protein_group))) %>%
+  ungroup() %>%
+  deframe()
+
+venn_symb_Genotype <- ggVennDiagram(symb_sets_Genotype, label = "count",label_alpha = 0) +
+  scale_fill_gradient(low = "lightblue", high = "royalblue3")
+grid.arrange(venn_symb_Genotype, venn_Mcap_condition, venn_Mcap_Genotype, venn_symb_condition, nrow = 2, ncol = 2)
+```
+
+Unique proteins counts and percentages for Montipora capitata
+```{r}
+paste("H+L: ", round(6595/(45+6595+136)*100,2),"%")
+paste("H: ", round(136/(45+6595+136)*100,2),"%")
+paste("L: ", round(45/(45+6595+136)*100,2),"%")
+```
+
+Unique proteins counts and percentages for Cladocopium
+```{r}
+paste("H+L: ", round(1753/(11+1753+72)*100,2),"%")
+paste("H: ", round(72/(11+1753+72)*100,2),"%")
+paste("L: ", round(11/(11+1753+72)*100,2),"%")
+```
+
+# Write results
+
+Here we write the protein data, in long and wide format and annotated with organism info to a CSV. Add the number of protein
+```{r}
+write.csv(pg_matrix_wide_organism %>%
+            left_join(pg_N_inspection,by="Protein_group") %>%
+            select(Protein_group,Organism,Protein_group_N,everything()),"pg_matrix_wide_organism.csv",row.names = FALSE)
+write.csv(pg_matrix_long_organism %>%
+            left_join(pg_N_inspection,by="Protein_group"),"pg_matrix_long_organism.csv",row.names = FALSE)
+```
