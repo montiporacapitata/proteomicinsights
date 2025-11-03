@@ -1,0 +1,70 @@
+---
+title: "4. Protein identifications and quantifications"
+author: "Permentier"
+date: "20-11-2024"
+output: html_document
+---
+
+# Protein identifications and quantifications
+
+## Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(arrow)
+  library(tidyr)
+})
+```
+
+## Load experimental design data
+
+Experimental design (2 treatments x 6 genotypes x 3 replicates = 36 samples):
+```{r}
+design <- read.csv("E:/PhD_YEAR4/Proteomics/2. Experimental design and metadata/DIA_metadata.csv")
+dim(design)
+colnames(design)
+```
+
+## Processing DIA-NN output file
+
+Load the normalised MaxLFQ quantities for protein groups: "report.pg_matrix.TSV". This contains the 8612 proteins, filtered at 1% FDR, using global q-values for protein groups and both global and run-specific q-values for precursors. DIA-NN has applied additional 5% run-specific protein-level FDR filter to the protein matrix.
+--> figure out if this is the best method!
+```{r}
+pg_matrix <- read.table("E:/PhD_YEAR4/Proteomics/4. Protein ID and quantification/report.pg_matrix.TSV",sep="\t",header=TRUE)
+dim(pg_matrix)[1]
+
+```
+
+Convert this wide format to a long format with every row representing a protein group quantification in one sample.
+```{r}
+pg_matrix_long <- pg_matrix %>%
+  select(-c(Protein.Names,Genes,First.Protein.Description)) %>%
+  pivot_longer(cols = -Protein.Group, names_to = "File.Name",values_to="normalised_MaxLFQ_quantity") %>%
+  mutate(File.Name = gsub(
+    "C..Users.trist.OneDrive...Vrije.Universiteit.Brussel.Desktop.Thesis.Proteomics.DIA_files.DIA_wide.|\\.raw",
+    "",
+    File.Name)) %>%
+  left_join(design %>% select(File.Name,Sample_ID),by="File.Name") %>%
+  select(-File.Name) %>%
+  rename(Protein_group = Protein.Group)
+
+dim(pg_matrix_long)
+colnames(pg_matrix_long)
+```
+
+Convert this to a wide format, but with more useful Sample_ID column names (instead of File.Path to the sample RAW file).
+```{r}
+pg_matrix_wide <- pg_matrix_long %>%
+  pivot_wider(names_from = Sample_ID,values_from = normalised_MaxLFQ_quantity)
+```
+
+## Write results
+
+Write both the wide and the long data frames to CSV. Both will be useful in subsequent analyses.
+```{r}
+write.csv(pg_matrix_long,"pg_matrix_long.csv",row.names=FALSE)
+write.csv(pg_matrix_wide,"pg_matrix_wide.csv",row.names=FALSE)
+```
+
+
