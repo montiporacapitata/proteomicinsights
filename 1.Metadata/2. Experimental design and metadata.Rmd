@@ -1,0 +1,141 @@
+---
+title: "2. Experimental design and metadata"
+author: "Permentier"
+date: "2024-11-20"
+output: html_document
+---
+
+# Experimental design and metadata
+
+## Libraries:
+```{r}
+library(dplyr)
+library(readxl)
+```
+
+## Mass spectrometry metadata
+
+This file contains information on the mass spectrometry runs that were done in sequence on that day: "20240424_UWPRLumos_TPcorals_sequence.csv".
+```{r}
+setwd("E:/PhD_YEAR4/Proteomics/2. Experimental design and metadata")
+ms_runs <- read.csv("20240424_UWPRLumos_TPcorals_sequence.csv") %>% 
+  mutate_all(as.factor) %>% select(-Sample.Name)
+head(ms_runs)
+```
+
+The mass spectrometer was run in different ways that day (i.e. the method for how it was run): GPF_DIA, PRM, DIA_QC, DIA_ctrl, DIA, pool_DDA, DDA and blank. The comment column contains useful details for the DIA analysis. Add Method and DIA_info columns.
+```{r}
+ms_runs <- ms_runs %>% 
+  mutate(Method = case_when(
+    grepl("GPF", Instrument.Method) ~ "GPF_DIA",
+    grepl("PRM", Instrument.Method) ~ "PRM", # PRM data from another project
+    grepl("DIA_fullms", Instrument.Method) ~ "DIA_QC",
+    grepl("ctrl", Comment) ~ "DIA_ctrl",
+    grepl("DIA", Instrument.Method) ~ "DIA",
+    grepl("pool DDA", Comment) ~ "pool_DDA",
+    grepl("DDA", Instrument.Method) ~ "DDA",
+    grepl("blank", Comment) ~ "blank",
+    TRUE ~ NA_character_
+  )) %>%
+  mutate(DIA_info = case_when(
+    grepl("DIA",Method) ~ Comment,
+    TRUE ~ NA_character_
+  ))
+ms_runs
+```
+
+This file contains experimental design details and Total Ion Current (TIC) data for every mass spectrometry run: "TIC and metadata.csv".
+```{r}
+TIC_metadata <- read.csv("TIC and metadata.csv")
+TIC_metadata <- TIC_metadata %>% mutate(across(everything(), ~ gsub("PIR2", "P1R2", .))) %>%
+   mutate(TIC = as.numeric(as.character(TIC))) %>%
+  mutate_if(is.character,as.factor)
+TIC_metadata
+```
+
+Make Coral.ID column in TIC_metadata correspond to the DIA_info column in ms_runs:
+```{r}
+TIC_metadata <- TIC_metadata %>%
+  rename(DIA_info = Coral.ID) %>%
+  mutate(DIA_info = case_when(
+    DIA_info == "Control A" ~ "ctrl A",
+    DIA_info == "Control B" ~ "ctrl B",
+    DIA_info == "Control C" ~ "ctrl C",
+    DIA_info == "Control D" ~ "ctrl D",
+    DIA_info == "pool 1" ~ "pool400-500",
+    DIA_info == "pool 2" ~ "pool500-600",
+    DIA_info == "pool 3" ~ "pool600-700",
+    DIA_info == "pool 4" ~ "pool700-800",
+    DIA_info == "pool 5" ~ "pool800-900",
+    DIA_info == "pool 6" ~ "pool900-1000",
+    TRUE ~ DIA_info # everything else remains the same
+  ))
+TIC_metadata
+```
+
+## DIA metadata
+
+Add TIC_metadata to the mass spectrometry run data and filter for DIA runs only.
+```{r}
+DIA_metadata <- ms_runs %>%
+  filter(Method =="DIA") %>%
+  left_join(TIC_metadata, by = "DIA_info") %>%
+  select(-DIA_info)
+DIA_metadata
+```
+
+
+Change genotype names 19, 60, 64, 64Y, 90 and P1R2 to A, B, C, D, E, F respectively. Change S (shade) to L (low) and C (control) to H (high).
+```{r}
+DIA_metadata <- DIA_metadata %>%
+  rename(Coordinate = Rack,
+         Rack = Experiment) %>%
+  mutate(Treatment = recode(Treatment, `C` = "H", `S` = "L"),
+         Genotype = recode(Genotype, 
+                           `19` = "A",
+                           `60` = "B",
+                           `64` = "C",
+                           `64Y` = "D",
+                           `90` = "E",
+                           `P1R2` = "F"),
+         Tag = paste(Treatment,Rack,"-",Coordinate,"-",Genotype, sep = ""))
+DIA_metadata
+```
+
+Every row corresponds to a mass spectrometry run for every coral sample. For genotype D as well as for genotype E, one coral in the LL condition did not survive. To ensure condition-wise trireplicate samples for both genotypes, we selected one of the two surviving colonies in low light for both genotypes and we sampled this colony from opposite sides. For this, we sampled from different branches or plates. Therefore, there are two pairs of samples/ runs that belong to the same coral. Which corals were sampled twice?
+```{r}
+DIA_metadata <- DIA_metadata %>%
+  group_by(Tag) %>%
+  mutate(Sampled_twice = ifelse(Method == "DIA", n() > 1, FALSE)) %>%
+  ungroup()
+
+tags_sampled_twice <- DIA_metadata %>%
+  filter(Sampled_twice == TRUE) %>%
+  select(Tag) %>%
+  distinct()
+
+print(tags_sampled_twice)
+```
+
+Create Sample_ID column for subsequent analyses (reflecting condition-wise triplicates for every genotype):
+```{r}
+DIA_metadata <- DIA_metadata %>%
+  mutate(Sample_ID = paste(Treatment, Genotype, Rack, sep = "_")) %>%
+  group_by(Sample_ID) %>%
+  mutate(
+    count = row_number(),
+    Sample_ID = ifelse(count > 1, paste0(Sample_ID, "_", count), Sample_ID)
+  ) %>%
+  ungroup() %>%
+  select(-count)
+DIA_metadata
+```
+
+## Output experimental design table
+
+Write experimental design table
+```{r}
+#write.csv(DIA_metadata,"DIA_metadata.csv",row.names=FALSE)
+```
+
+
