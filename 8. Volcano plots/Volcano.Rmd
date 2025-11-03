@@ -1,0 +1,163 @@
+---
+title: "Volcano plots"
+author: "Permentier"
+date: "2024-12-10"
+output: html_document
+---
+
+# Libraries
+
+```{r}
+#install.packages("xfun")
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(ggplot2)
+ # if (!require("BiocManager", quietly = TRUE))
+    #install.packages("BiocManager")
+
+#BiocManager::install("limma")
+  library(limma)
+  library(ggrepel)
+})
+```
+
+# Data
+
+Experimental design:
+```{r}
+design <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/2. Experimental design and metadata/DIA_metadata.csv")
+dim(design)
+colnames(design)
+```
+
+Wide protein data:
+```{r}
+pg_matrix_wide_organism <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/5. Assign organism/pg_matrix_wide_organism.csv")
+dim(pg_matrix_wide_organism)
+colnames(pg_matrix_wide_organism)
+```
+
+Annotations:
+```{r}
+pg_annotated <- read.csv(
+  "E:/PhD_Organized/I. Science/D. Proteomics/6. Biological annotation/pg_annotated.csv") %>%
+  select(-Organism)
+dim(pg_annotated)
+colnames(pg_annotated)
+```
+
+# Prepare the design and contrast matrices for differential abundance analysis
+
+First let's simplify the design table. limma::lmFit needs categorical variables to be factors.
+```{r}
+design_simple <- design %>%
+  select(Sample_ID, Genotype, Treatment) %>%
+  mutate(across(everything(), as.factor))
+dim(design_simple)
+colnames(design_simple)
+```
+
+limma::lmFit needs a design matrix and a contrast matrix.
+```{r}
+
+design_matrix <- model.matrix(~ Treatment + Genotype, data = design_simple)
+contrast_matrix <- makeContrasts(TreatmentL, levels = design_matrix)
+```
+
+# Prepare the protein data for differential abundance analysis
+
+Protein data:
+```{r}
+pg_simple <- pg_matrix_wide_organism %>%
+  select(-c(Organism,Protein_group_N)) %>%
+  mutate(across(-Protein_group, ~ log(.x + 1)))
+dim(pg_simple)
+colnames(pg_simple)
+```
+
+# Differential abundance analysis
+
+This is the model.
+```{r}
+
+fit <- lmFit(pg_simple, design_matrix)
+fit <- contrasts.fit(fit, contrast_matrix)
+fit <- eBayes(fit)
+```
+Differentially abundant proteins.
+```{r}
+pg_DAP <- topTable(fit, adjust.method = "BH", number = Inf) %>% 
+  dplyr::rename(log2FC = logFC) %>%
+  mutate(log2FC = -log2(10^log2FC)) %>% 
+  mutate(Abundance = ifelse(is.na(adj.P.Val) + is.na(log2FC) == 0,
+    ifelse(adj.P.Val < 0.05 & abs(log2FC) > 1.5,ifelse(log2FC > 1.5,"up","down"),"no difference"),
+    "no difference"))
+dim(pg_DAP)
+colnames(pg_DAP)
+```
+
+For how many proteins has differential abundance not been determined?
+```{r}
+paste(dim(pg_DAP %>% filter(is.na(Abundance)))[1],"/",dim(pg_DAP)[1])
+paste(round(dim(pg_DAP %>% filter(is.na(Abundance)))[1]/dim(pg_DAP)[1],2),"%")
+```
+
+Add annotation data.
+```{r}
+pg_DAP_annotated <- pg_DAP %>%
+  left_join(pg_matrix_wide_organism %>% select(Protein_group,Organism),by="Protein_group") %>%
+  left_join(pg_annotated,by="Protein_group")
+dim(pg_DAP_annotated)
+colnames(pg_DAP_annotated)
+```
+
+# Volcano plots
+
+These are the volcano plots. We mustn't worry too much about the warning message: this pertains to the geom_text_repel() function only.
+```{r}
+library(cowplot)
+volcano_plot <- ggplot(pg_DAP_annotated %>% 
+                         filter(Organism != "cRAP",
+                                Abundance != "unknown"), 
+                       aes(x = log2FC, y = -log2(adj.P.Val), color = Abundance)) +
+  geom_point() +
+  geom_hline(yintercept = -log2(0.05), linetype = "dashed", color = "black") +
+  geom_vline(xintercept = c(-1.5, 1.5), linetype = "dashed", color = "black") +
+  scale_color_manual(values = c("down" = "midnightblue", "up" = "goldenrod", "no difference" = "grey")) +
+  theme_minimal() +
+ # geom_text_repel(aes(label = ifelse(Abundance != "no difference", UP_X, "")),
+            #      size = 2.5,
+            #      box.padding = 0.5,
+             #     point.padding = 0.5,
+              #    max.overlaps = Inf,
+               #   segment.color = "grey50") +
+  xlab(expression(log[2](FC))) +
+  xlab(expression(log[2](FC))) +
+  ylab(expression(-log[2](p[adjusted]))) +
+  theme(panel.grid = element_blank()) +
+  theme_cowplot(10)+
+  facet_wrap(~Organism,ncol=2)
+volcano_plot
+```
+
+# Numbers of differentially abundant proteins
+
+```{r}
+pg_DAP_annotated_counts <- pg_DAP_annotated %>%
+  filter(Organism != "cRAP") %>%
+  group_by(Organism,Abundance) %>%
+  summarise(Total = n())
+
+pg_DAP_annotated_counts
+```
+
+# Write results
+
+Write to file.
+```{r}
+write.csv(pg_DAP_annotated,"pg_DAP_annotated.csv",row.names=FALSE)
+```
+
+
