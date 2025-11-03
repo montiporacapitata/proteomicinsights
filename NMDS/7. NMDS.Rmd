@@ -1,0 +1,343 @@
+---
+title: "6. Ordination and multivariate testing"
+author: "Permentier"
+date: "2024-11-21"
+output: html_document
+---
+
+NMDS code
+
+# Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(vegan)
+  library(ggplot2)
+})
+```
+
+# Load experimental design and protein data
+
+Experimental design (2 treatments x 6 genotypes x 3 replicates = 36 samples):
+```{r}
+design <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/2. Experimental design and metadata/DIA_metadata.csv")
+dim(design)
+colnames(design)
+```
+
+Load the protein data, in long format and annotated with the organism information:
+```{r}
+pg_matrix_long_organism <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/5. Assign organism/pg_matrix_long_organism.csv")
+dim(pg_matrix_long_organism)
+colnames(pg_matrix_long_organism)
+```
+
+#Montipora capitata
+
+##Select Montipora capitata.
+```{r}
+Mcap_ordination_data <- pg_matrix_long_organism %>%
+  filter(Organism == "Montipora capitata") %>%
+  select(-c(Organism,Protein_group_N)) %>%
+  pivot_wider(names_from = "Sample_ID", values_from = "normalised_MaxLFQ_quantity")
+dim(Mcap_ordination_data)
+colnames(Mcap_ordination_data)
+```
+
+##Format protein data for vegan.
+```{r}
+Abundances <- Mcap_ordination_data %>%
+  column_to_rownames(var="Protein_group") %>%
+  mutate_all(~replace(., is.na(.), 0)) %>%
+  t()
+```
+
+##NMDS.
+```{r}
+set.seed(123)
+nmds <- metaMDS(Abundances, distance = "bray", k = 2)
+nmds_metadata <- as.data.frame(nmds$points) %>% 
+  rownames_to_column(var="Sample_ID") %>%
+  left_join(design,by="Sample_ID")
+nmds_stress_coral <- nmds$stress
+nmds_stress_coral
+```
+
+##Bray Curtis distances.
+```{r}
+dist_matrix <- vegdist(Abundances, method = "bray")
+```
+
+##I'm not detecting a batch effect.
+```{r}
+permanova_result_batch <- adonis2(dist_matrix ~ Treatment + Genotype + Plate.Row + Plate.Column, data = nmds_metadata)
+batch_plot <- ggplot(nmds_metadata, aes(x = MDS1, y = MDS2)) +
+  geom_point(aes(color = Plate.Row)) +
+  theme_minimal() +
+  labs(title = paste("Light p = ",format(permanova_result_batch$`Pr(>F)`[1], digits=3),
+                     "Genotype p = ",format(permanova_result_batch$`Pr(>F)`[2], digits=3),
+                     "Row p = ",format(permanova_result_batch$`Pr(>F)`[3], digits=3),
+                     "Column p = ",format(permanova_result_batch$`Pr(>F)`[4], digits=3)), x = "NMDS1", y = "NMDS2") +
+  theme_minimal() +
+  theme(panel.grid = element_blank())
+batch_plot
+```
+
+##PERMANOVA using Bray-Curtis distance four our question.
+```{r}
+permanova_result <- adonis2(dist_matrix ~ Treatment + Genotype, data = nmds_metadata)
+p_value_condition_coral <- permanova_result$`Pr(>F)`[1]
+p_value_Genotype_coral <- permanova_result$`Pr(>F)`[2]
+
+hull.H <- nmds_metadata[nmds_metadata$Treatment == "H", ][chull(nmds_metadata[nmds_metadata$Treatment == 
+    "H", c("MDS1", "MDS2")]), ]  # hull values for control
+hull.L <- nmds_metadata[nmds_metadata$Treatment == "L", ][chull(nmds_metadata[nmds_metadata$Treatment == 
+    "L", c("MDS1", "MDS2")]), ]  # hull values for Low
+
+hulls_condition <- rbind(hull.H, hull.L)  #combine hulls
+
+# Convert Sampled_twice to logical if it's not already
+nmds_metadata$Color <- ifelse(as.logical(nmds_metadata$Sampled_twice), "Same L colony sampled twice", as.character(nmds_metadata$Treatment))
+# Plot
+nmds_metadata_coral <- nmds_metadata
+NMDS_plot_coral <- ggplot(nmds_metadata %>%
+                            rename(NMDS1 = MDS1, NMDS2 = MDS2), aes(x = NMDS1, y = NMDS2)) +
+  geom_point(aes(color = Color, shape = Genotype)) +
+  geom_polygon(data=hulls_condition,aes(x=MDS1,y=MDS2,fill=Treatment,group=Treatment),alpha=0.30)  +
+  scale_fill_manual(values = c("H" = "goldenrod", "L" = "midnightblue")) +
+  scale_color_manual(values = c("H" = "goldenrod", "L" = "midnightblue", "Same L colony sampled twice" = "red2")) +
+  theme_minimal() +
+  theme(panel.grid = element_blank())
+
+NMDS_plot_coral
+```
+
+
+##Pairwise adonis M.cap: 
+
+```{r}
+
+#Is distance significant among groups?
+pairwise_permanova <- function(sp_matrix, group_var, dist = "euclidian", adj = "bonferroni", perm = 10000) {
+  
+  require(vegan)
+  
+  ## list contrasts
+  group_var <- as.character(group_var)
+  groups <- as.data.frame(t(combn(unique(group_var), m = 2)))
+  
+  contrasts <- data.frame(
+    group1 = groups$V1, group2 = groups$V2,
+    R2 = NA, F_value = NA, df1 = NA, df2 = NA, p_value = NA
+  )
+  
+  for (i in seq(nrow(contrasts))) {
+    sp_subset <- group_var == contrasts$group1[i] | group_var == contrasts$group2[i] 
+    contrast_matrix <- sp_matrix[sp_subset,]
+    
+    ## fit contrast using adonis
+    fit <- vegan::adonis2(
+      contrast_matrix ~ group_var[sp_subset],
+      method = dist, 
+      perm = perm
+    )
+    
+    contrasts$R2[i] <- round(fit$R2[1], digits = 3)
+    contrasts$F_value[i] <- round(fit[["F"]][1], digits = 3)
+    contrasts$df1[i] <- fit$Df[1]
+    contrasts$df2[i] <- fit$Df[2]
+    contrasts$p_value[i] <- fit$`Pr(>F)`[1]
+  }
+  
+  ## adjust p-values for multiple comparisons
+  contrasts$p_value <- round(p.adjust(contrasts$p_value, method = adj), digits = 10)
+  
+  return(list(
+    contrasts = contrasts, 
+    "p-value adjustment" = adj, 
+    permutations = perm
+  ))
+}
+
+pairwise_permanova(Abundances, nmds_metadata$Genotype, dist = "euclidian", adj = "BH", perm = 10000)#wite output in a .txt file)
+
+```
+
+
+
+Critical information:
+```{r}
+# Number of proteins
+dim(Mcap_ordination_data)[1]
+# NMDS stress value
+nmds_stress_coral
+# PERMANOVA p value light
+p_value_condition_coral
+# PERMANOVA p value genotype
+p_value_Genotype_coral
+```
+
+
+# Symbionts
+
+##Select symbionts.
+```{r}
+symbiont_ordination_data <- pg_matrix_long_organism %>%
+  filter(Organism == "Cladocopium") %>%
+  select(-c(Organism,Protein_group_N)) %>%
+  pivot_wider(names_from = "Sample_ID", values_from = "normalised_MaxLFQ_quantity")
+dim(symbiont_ordination_data)
+colnames(symbiont_ordination_data)
+```
+
+##Format protein data for vegan.
+```{r}
+Abundances <- symbiont_ordination_data %>%
+  column_to_rownames(var="Protein_group") %>%
+  mutate_all(~replace(., is.na(.), 0)) %>%
+  t()
+```
+
+##NMDS.
+```{r}
+set.seed(123)
+nmds <- metaMDS(Abundances, distance = "bray", k = 2)
+nmds_metadata <- as.data.frame(nmds$points) %>% 
+  rownames_to_column(var="Sample_ID") %>%
+  left_join(design,by="Sample_ID")
+nmds$stress
+```
+
+NMDS stress.
+```{r}
+nmds$stress
+```
+
+##I'm not detecting a batch effect.
+```{r}
+library(cowplot)
+dist_matrix <- vegdist(Abundances, method = "bray")
+permanova_result_batch <- adonis2(dist_matrix ~ Treatment + Genotype + Plate.Row + Plate.Column, data = nmds_metadata)
+nmds_metadata$Plate.Column <- as.factor(nmds_metadata$Plate.Column)
+batch_plot <- ggplot(nmds_metadata, aes(x = MDS1, y = MDS2)) +
+  geom_point(aes(color = Plate.Row, shape = Plate.Column)) +
+  scale_shape_manual(values = seq(1,10))+
+  #labs(title = paste("Light p = ",format(permanova_result_batch$`Pr(>F)`[1], digits=3),
+ #                    "Genotype p = ",format(permanova_result_batch$`Pr(>F)`[2], digits=3),
+#                     "Row p = #",format(permanova_result_batch$`Pr(>F)`[3], digits=3),
+#                     "Column p = #",format(permanova_result_batch$`Pr(>F)`[4], digits=3)), x = "NMDS1", y = "NMDS2") +
+  theme_cowplot(10) +
+  theme(panel.grid = element_blank())
+batch_plot
+```
+
+##5 weird abnormal samples belonging to Genotype B (the only clade D - dominated genotype under analysis according to ITS2 sequencing).
+```{r}
+Genotype_60_plot <- ggplot(nmds_metadata, aes(x = MDS1, y = MDS2)) +
+  geom_point(aes(color = Genotype)) +
+  theme_minimal() +
+  labs(title = "Cladocopium proteomes prior to exclusion of genotype B", x = "NMDS1", y = "NMDS2") +
+  theme(panel.grid = element_blank())
+Genotype_60_plot
+```
+
+##Filter out genotype B.
+```{r}
+Abundances <- rownames_to_column(data.frame(Abundances),var = "Sample_ID") %>%
+  left_join(design %>% dplyr::select(Sample_ID,Genotype),by="Sample_ID") %>%
+  #filter(Genotype != "B") %>%
+  dplyr::select(-Genotype) %>%
+  column_to_rownames(var="Sample_ID") %>%
+  as.matrix()
+dim(Abundances)
+```
+
+##NMDS.
+```{r}
+set.seed(123)
+nmds <- metaMDS(Abundances, distance = "bray", k = 2)
+nmds_metadata <- as.data.frame(nmds$points) %>% 
+  rownames_to_column(var="Sample_ID") %>%
+  left_join(design,by="Sample_ID")
+nmds_stress_symbiont <- nmds$stress
+nmds_stress_symbiont
+```
+
+##PERMANOVA using Bray-Curtis distance four our question.
+```{r}
+dist_matrix <- vegdist(Abundances, method = "bray") # Bray Curtis distances
+permanova_result <- adonis2(dist_matrix ~ Treatment + Genotype, data = nmds_metadata)
+p_value_condition_symbiont <- permanova_result$`Pr(>F)`[1]
+p_value_Genotype_symbiont <- permanova_result$`Pr(>F)`[2]
+
+hull.H <- nmds_metadata[nmds_metadata$Treatment == "H", ][chull(nmds_metadata[nmds_metadata$Treatment == 
+    "H", c("MDS1", "MDS2")]), ]  # hull values for control
+hull.L <- nmds_metadata[nmds_metadata$Treatment == "L", ][chull(nmds_metadata[nmds_metadata$Treatment == 
+    "L", c("MDS1", "MDS2")]), ]  # hull values for Low
+
+hulls_Treatment <- rbind(hull.H, hull.L)  #combine hulls
+
+# Convert Sampled_twice to logical if it's not already
+nmds_metadata$Color <- ifelse(as.logical(nmds_metadata$Sampled_twice), "Same L colony sampled twice", as.character(nmds_metadata$Treatment))
+# Plot
+nmds_metadata_symbiont <- nmds_metadata
+NMDS_plot_symbiont <- ggplot(nmds_metadata %>%
+                            rename(NMDS1 = MDS1, NMDS2 = MDS2), aes(x = NMDS1, y = NMDS2)) +
+  geom_point(aes(color = Color, shape = Genotype)) +
+  geom_polygon(data=hulls_Treatment,aes(x=MDS1,y=MDS2,fill=Treatment,group=Treatment),alpha=0.30)  +
+  scale_fill_manual(values = c("H" = "goldenrod", "L" = "midnightblue")) +
+  scale_color_manual(values = c("H" = "goldenrod", "L" = "midnightblue", "Same L colony sampled twice" = "red2")) +
+  theme_minimal() +
+  theme_minimal() +
+  theme(panel.grid = element_blank())
+
+NMDS_plot_symbiont
+```
+
+# Unite NMDS plots
+
+```{r}
+nmds_metadata_holobiont <- rbind(nmds_metadata_coral %>% 
+                                   mutate(Organism = "Montipora capitata"),
+                                 nmds_metadata_symbiont %>% 
+                                   mutate(Organism = "Cladocopium"))
+
+# Function to calculate convex hull for a given group
+calculate_hull <- function(df) df[chull(df$MDS1, df$MDS2), ]
+
+# Subplot title
+nmds_metadata_holobiont <- nmds_metadata_holobiont %>%
+  mutate(Subplot_title = paste(Organism,"\nStress = ",ifelse(Organism == "Montipora capitata",
+                                                             format(nmds_stress_coral,digits=3),
+                                                             format(nmds_stress_symbiont,digits=3)),
+                               "\nGenotype p = ",ifelse(Organism == "Montipora capitata",p_value_Genotype_coral,p_value_Genotype_symbiont),
+                               "\nLight p = ",ifelse(Organism == "Montipora capitata",p_value_condition_coral,p_value_condition_symbiont)))
+
+# Calculate convex hulls for each Organism and Color group
+hulls <- nmds_metadata_holobiont %>%
+  mutate(Color = ifelse(Color == "Same L colony sampled twice","L",Color)) %>%
+  group_by(Subplot_title, Color) %>%
+  do(calculate_hull(.)) %>%
+  ungroup()
+
+
+# Create the plot with polygons
+library(cowplot)
+NMDS_plot_holobiont <- ggplot(nmds_metadata_holobiont,
+                             aes(x = MDS1, y = MDS2)) +
+  geom_polygon(data = hulls, aes(fill = Color, group = interaction(Organism, Color)), alpha = 0.3) +
+  geom_point(aes(color = Color, shape = Genotype)) +
+  scale_fill_manual(values = c("H" = "goldenrod", "L" = "midnightblue")) +
+  scale_color_manual(values = c("H" = "goldenrod", "L" = "midnightblue", "Same L colony sampled twice" = "red2")) +
+  labs(x="NMDS1",y="NMDS2") +
+  theme_cowplot(12) +
+  facet_wrap(~Subplot_title) +
+  theme(panel.grid = element_blank())+
+  theme(legend.position = "none")
+
+NMDS_plot_holobiont
+```
+
