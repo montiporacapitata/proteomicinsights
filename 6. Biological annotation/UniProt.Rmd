@@ -1,0 +1,208 @@
+---
+title: "UniProt"
+author: "Permentier"
+date: "2024-12-13"
+output: html_document
+---
+
+Protein database: UniProtKB SwissProt (2023_03)
+
+# Libraries and data
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(ggplot2)
+})
+```
+
+Load the protein data, categorized by organism.
+```{r}
+pg_matrix_wide_organism <- read.csv("E:/PhD_YEAR4/Proteomics/5. Assign organism/pg_matrix_wide_organism.csv")
+dim(pg_matrix_wide_organism)
+colnames(pg_matrix_wide_organism)
+```
+
+
+# Read tabular BLAST output
+
+Read the DIAMOND output for the symbiont sequences.
+```{r}
+symb_UniProt <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/symb_UniProt.csv")
+dim(symb_UniProt)
+colnames(symb_UniProt)
+```
+
+Read the DIAMOND output for the Montipora capitata sequences.
+```{r}
+Mcap_UniProt <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/Mcap_UniProt.csv")
+dim(Mcap_UniProt)
+colnames(Mcap_UniProt)
+```
+
+# Select the best hits
+
+Combine data frames.
+```{r}
+pg_UniProt_DIAMOND <- rbind(symb_UniProt %>% mutate(Organism = "Cladocopium"),
+                    Mcap_UniProt %>% mutate(Organism = "Montipora capitata"))
+dim(pg_UniProt_DIAMOND)
+colnames(pg_UniProt_DIAMOND)
+```
+
+Sort each group by the lowest Expect_value first, and if there are ties, by the highest Bit_score.
+```{r}
+pg_UniProt_DIAMOND_filtered <- pg_UniProt_DIAMOND %>%
+  group_by(Query_id) %>%
+  arrange(Expect_value, desc(Bit_score)) %>%
+  slice(1) %>%
+  ungroup() %>%
+  rename(Protein_group = Query_id) %>%
+  mutate(Accession_number = sub(".*\\|(.*)\\|.*", "\\1", Subject_id)) %>%
+  select(c(Protein_group,Accession_number,everything()))
+dim(pg_UniProt_DIAMOND_filtered)
+colnames(pg_UniProt_DIAMOND_filtered)
+```
+How many proteins were annotated for Cladocopium:
+```{r}
+total_annotated = dim(pg_UniProt_DIAMOND_filtered %>% filter(Organism == "Cladocopium"))[1]
+total = dim(pg_matrix_wide_organism %>% filter(Organism == "Cladocopium"))[1]
+paste(total_annotated,'/',total)
+paste(round(total_annotated / total*100,2), "%")
+```
+
+How many proteins were annotated for Montipora capitata:
+```{r}
+total_annotated = dim(pg_UniProt_DIAMOND_filtered %>% filter(Organism == "Montipora capitata"))[1]
+total = dim(pg_matrix_wide_organism %>% filter(Organism == "Montipora capitata"))[1]
+paste(total_annotated,'/',total)
+paste(round(total_annotated / total*100,2), "%")
+```
+
+# Make lists of accession numbers
+
+Every protein has been assigned a Subject_id, for example "sp|P18258|TBA1_PARLI". "sp" refers to SwissProt, the second part "P18258" is the accession number and the third part "TBA1_PARLI" is the entry name. Entry names may change, but accession numbers are always conserved.
+
+
+Get the (unique) accession numbers for Montipora capitata.
+```{r}
+Mcap_UP_AC <- pg_UniProt_DIAMOND_filtered %>% 
+            filter(Organism == "Montipora capitata") %>%
+            pull(Accession_number)
+# Number of unique accession numbers
+paste(Mcap_UP_AC %>% n_distinct(),'/',length(Mcap_UP_AC))
+# Filter unique
+Mcap_UP_AC <- Mcap_UP_AC %>%
+  unique()
+length(Mcap_UP_AC)
+```
+
+Get the (unique) accession numbers for Cladocopium.
+```{r}
+symb_UP_AC <- pg_UniProt_DIAMOND_filtered %>% 
+            filter(Organism == "Cladocopium") %>%
+            pull(Accession_number)
+# Number of unique accession numbers
+paste(symb_UP_AC %>% n_distinct(),'/',length(symb_UP_AC))
+# Filter unique
+symb_UP_AC <- symb_UP_AC %>%
+  unique()
+length(symb_UP_AC)
+```
+
+Write accession numbers to text files for the UniProt Batch retrieve tool:
+```{r}
+# Montipora capitata
+writeLines(Mcap_UP_AC,
+          "Mcap_UniProt_AC.txt")
+# Cladocopium
+writeLines(symb_UP_AC,
+          "symb_UniProt_AC.txt")
+```
+
+These accession numbers were submitted to https://www.uniprot.org/id-mapping (mapping from UniProtKB to UniProtKB).
+
+# Process the retrieved data
+
+Read the UniProt results for Montipora capitata.
+```{r}
+Mcap_UniProt_retrieved <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/Mcap_idmapping_2024_12_13.TSV",sep="\t")
+dim(Mcap_UniProt_retrieved)[1]
+colnames(Mcap_UniProt_retrieved)
+```
+
+Read the UniProt results for Cladocopium.
+```{r}
+symb_UniProt_retrieved <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/symb_idmapping_2024_12_13.TSV",sep="\t")
+dim(symb_UniProt_retrieved)[1]
+colnames(symb_UniProt_retrieved)
+```
+
+Combine the data frames and filter for unique rows (proteins from different organisms may have been mapped on to the same accession number)
+```{r}
+UniProt_retrieved <- rbind(symb_UniProt_retrieved,Mcap_UniProt_retrieved) %>%
+  rename_with(~ gsub("\\_+$", "", gsub("\\.\\.|\\.", "_", paste0("UP_", .)))) %>%
+  rename(UP_Accession_number = UP_From) %>%
+  select(-UP_Entry) %>%
+  distinct()
+# Result of filtering for unique accession numbers
+paste(dim(UniProt_retrieved)[1],'/',dim(Mcap_UniProt_retrieved)[1]+dim(symb_UniProt_retrieved)[1])
+colnames(UniProt_retrieved)
+```
+
+Combine data frames and match to the original proteins.
+```{r}
+pg_annotated_UniProt <- pg_UniProt_DIAMOND_filtered %>%
+  rename_with(~ paste0("UP_", .)) %>%
+  rename(Organism = UP_Organism, Protein_group = UP_Protein_group) %>%
+  left_join(UniProt_retrieved,by="UP_Accession_number")
+dim(pg_annotated_UniProt)
+colnames(pg_annotated_UniProt)
+```
+
+# Data inspection
+
+The Montipora capitata and Cladocopium proteins have been matched to proteins in the UniProt database. To which organisms do these proteins belong?
+```{r}
+# Count the number of occurrences for each organism
+UP_organism_count <- pg_annotated_UniProt %>%
+  group_by(UP_Organism) %>%
+  summarise(Count = n()) %>%
+  arrange(desc(Count))
+
+# Plotting the data
+library(ggplot2)
+
+ggplot(UP_organism_count %>% slice_head(n = 15), 
+       aes(x = reorder(UP_Organism, -Count), y = Count)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Hits (UniProt) for 5349 M. capitata and 1132 Cladocopium sp. query sequences - top 15 organisms",
+    x = "Organism",
+    y = "Count"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+# Result
+
+Add "UP_X" for use as a working name for the proteins in coming analyses. Based on: https://www.uniprot.org/help/entry_name.
+```{r}
+pg_annotated_UniProt <- pg_annotated_UniProt %>%
+  mutate(UP_X = sub("_.*", "", UP_Entry_Name)) %>%
+  select(Protein_group,UP_X,everything())
+```
+
+Write to file.
+```{r}
+write.csv(pg_annotated_UniProt %>% select(-Organism),"pg_UniProt.csv",row.names=FALSE)
+```
+
+
+
+

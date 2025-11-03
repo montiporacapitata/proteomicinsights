@@ -1,0 +1,79 @@
+---
+title: "Biological annotation"
+author: "Permentier"
+date: "2024-12-13"
+output: html_document
+---
+
+# Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+})
+```
+
+# Data
+
+Load the protein data, categorized by organism.
+```{r}
+pg_organism <- read.csv("E:/PhD_YEAR4/Proteomics/5. Assign organism/pg_matrix_wide_organism.csv") %>%
+  select(Protein_group, Organism)
+dim(pg_organism)
+colnames(pg_organism)
+```
+
+BlastKoala:
+```{r}
+pg_koala <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/pg_koala.csv")
+dim(pg_koala)
+colnames(pg_koala)
+```
+
+UniProt:
+```{r}
+pg_UniProt <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/pg_UniProt.csv")
+dim(pg_UniProt)
+colnames(pg_UniProt)
+```
+
+# Combination
+
+Combination.
+```{r}
+pg_annotated <- pg_organism %>%
+  left_join(pg_koala,by="Protein_group") %>%
+  left_join(pg_UniProt,by="Protein_group") %>%
+  mutate(Annotated = rowSums(!is.na(select(., -Protein_group, -Organism))) > 0) %>%
+  select(c(Protein_group,Organism,Annotated,everything()))
+dim(pg_annotated)
+colnames(pg_annotated)
+```
+
+Percent annotated by at least one database:
+```{r}
+pg_annotated_summary <- pg_annotated %>%
+  filter(Organism != "cRAP") %>%
+  group_by(Organism) %>%
+  summarise(
+    Total_proteins = n(),
+    Annotated_proteins = sum(Annotated),
+    Percent_annotated = (Annotated_proteins / Total_proteins) * 100
+  )
+pg_annotated_summary
+```
+
+Percent annotated by at least one database for Cladocopium proteins:
+```{r}
+
+```
+
+# Result
+
+Write to file.
+```{r}
+write.csv(pg_annotated,"pg_annotated.csv",row.names=FALSE)
+```
+

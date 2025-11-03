@@ -1,0 +1,1532 @@
+Protein_group	Koala_ko
+SymbC1.scaffold1.1062
+SymbC1.scaffold1.1460
+SymbC1.scaffold1.830
+SymbC1.scaffold1.927
+SymbC1.scaffold100.9
+SymbC1.scaffold1003.5
+SymbC1.scaffold10035.1	K12823
+SymbC1.scaffold10035.2	K01875
+SymbC1.scaffold10059.2	K03234
+SymbC1.scaffold1014.4
+SymbC1.scaffold10199.1
+SymbC1.scaffold10199.2
+SymbC1.scaffold1020.1
+SymbC1.scaffold1020.3
+SymbC1.scaffold10224.2	K13954
+SymbC1.scaffold1024.4
+SymbC1.scaffold10242.1	K01276
+SymbC1.scaffold10265.1
+SymbC1.scaffold1028.14
+SymbC1.scaffold1029.2
+SymbC1.scaffold1030.2
+SymbC1.scaffold1038.6
+SymbC1.scaffold1044.7
+SymbC1.scaffold1045.7	K02987
+SymbC1.scaffold10487.1
+SymbC1.scaffold105.4	K17264
+SymbC1.scaffold1050.1
+SymbC1.scaffold10501.2
+SymbC1.scaffold10501.3
+SymbC1.scaffold10507.1
+SymbC1.scaffold1055.4
+SymbC1.scaffold10555.2	K00411
+SymbC1.scaffold10565.1
+SymbC1.scaffold1058.2	K01934
+SymbC1.scaffold1063.1	K01626
+SymbC1.scaffold1065.4	K15100
+SymbC1.scaffold10653.1
+SymbC1.scaffold1066.1
+SymbC1.scaffold1068.1
+SymbC1.scaffold1073.1	K17267
+SymbC1.scaffold10731.2
+SymbC1.scaffold10731.3
+SymbC1.scaffold10747.3
+SymbC1.scaffold10803.1	K02985
+SymbC1.scaffold1084.3
+SymbC1.scaffold1086.1
+SymbC1.scaffold1086.4
+SymbC1.scaffold10868.2
+SymbC1.scaffold1087.3	K03032
+SymbC1.scaffold1087.4
+SymbC1.scaffold10891.1	K00799
+SymbC1.scaffold10902.3
+SymbC1.scaffold1091.1
+SymbC1.scaffold1091.2
+SymbC1.scaffold10918.1
+SymbC1.scaffold1092.2
+SymbC1.scaffold1092.5	K02866
+SymbC1.scaffold1093.26
+SymbC1.scaffold1094.6	K01883
+SymbC1.scaffold1094.9
+SymbC1.scaffold1095.5	K12874
+SymbC1.scaffold1100.8
+SymbC1.scaffold1101.15	K14165
+SymbC1.scaffold1101.3
+SymbC1.scaffold1101.8
+SymbC1.scaffold1102.1
+SymbC1.scaffold11044.1
+SymbC1.scaffold11049.1
+SymbC1.scaffold11049.2
+SymbC1.scaffold11075.1	K06630
+SymbC1.scaffold1108.1	K08057
+SymbC1.scaffold1109.6
+SymbC1.scaffold111.1
+SymbC1.scaffold111.3
+SymbC1.scaffold11121.1	K02134
+SymbC1.scaffold1113.10
+SymbC1.scaffold11142.1	K02995
+SymbC1.scaffold11150.2	K11252
+SymbC1.scaffold1116.6	K01189
+SymbC1.scaffold1119.1
+SymbC1.scaffold112.7
+SymbC1.scaffold1123.3
+SymbC1.scaffold1123.4
+SymbC1.scaffold11237.1	K02729
+SymbC1.scaffold1124.1
+SymbC1.scaffold1128.8
+SymbC1.scaffold11285.1	K00615
+SymbC1.scaffold11285.2
+SymbC1.scaffold11297.1
+SymbC1.scaffold1132.3
+SymbC1.scaffold1138.2
+SymbC1.scaffold11472.1
+SymbC1.scaffold1151.2
+SymbC1.scaffold1157.2	K02737
+SymbC1.scaffold1159.7
+SymbC1.scaffold116.7
+SymbC1.scaffold1160.3
+SymbC1.scaffold1168.1	K12825
+SymbC1.scaffold11683.1	K26736
+SymbC1.scaffold1174.4
+SymbC1.scaffold11779.1
+SymbC1.scaffold11781.1
+SymbC1.scaffold118.5	K09490
+SymbC1.scaffold1183.3
+SymbC1.scaffold1184.6
+SymbC1.scaffold1184.7	K01637
+SymbC1.scaffold11842.2	K11188
+SymbC1.scaffold1190.2
+SymbC1.scaffold11961.1	K00626
+SymbC1.scaffold12058.1
+SymbC1.scaffold1213.2
+SymbC1.scaffold12130.1
+SymbC1.scaffold12138.1	K00208
+SymbC1.scaffold1215.3
+SymbC1.scaffold1221.7	K10251
+SymbC1.scaffold1222.3
+SymbC1.scaffold12258.1	K02728
+SymbC1.scaffold12329.2
+SymbC1.scaffold124.13	K00620
+SymbC1.scaffold124.7
+SymbC1.scaffold1241.3	K07399
+SymbC1.scaffold12411.1	K03242
+SymbC1.scaffold1242.6	K00135
+SymbC1.scaffold1243.3	K01057
+SymbC1.scaffold125.16	K11163
+SymbC1.scaffold12501.2
+SymbC1.scaffold12561.1	K00101
+SymbC1.scaffold12587.1
+SymbC1.scaffold126.3
+SymbC1.scaffold12627.2	K04564
+SymbC1.scaffold1263.3
+SymbC1.scaffold1263.4	K06972
+SymbC1.scaffold12680.1
+SymbC1.scaffold1269.5
+SymbC1.scaffold127.13
+SymbC1.scaffold127.2	K00548
+SymbC1.scaffold1272.1	K00164
+SymbC1.scaffold1272.2
+SymbC1.scaffold1275.1	K00616
+SymbC1.scaffold12760.1
+SymbC1.scaffold1284.3
+SymbC1.scaffold1288.10
+SymbC1.scaffold129.3	K01834
+SymbC1.scaffold1290.1	K02879
+SymbC1.scaffold1291.1
+SymbC1.scaffold1291.14
+SymbC1.scaffold1295.8
+SymbC1.scaffold1297.5	K19882
+SymbC1.scaffold12996.1
+SymbC1.scaffold130.1
+SymbC1.scaffold130.18
+SymbC1.scaffold1302.4	K03695
+SymbC1.scaffold1304.1
+SymbC1.scaffold1304.6
+SymbC1.scaffold1306.3
+SymbC1.scaffold131.14
+SymbC1.scaffold1310.2
+SymbC1.scaffold13190.1	K00012
+SymbC1.scaffold1321.4
+SymbC1.scaffold1321.7
+SymbC1.scaffold1332.6
+SymbC1.scaffold1332.8	K01915
+SymbC1.scaffold1334.4
+SymbC1.scaffold1335.1
+SymbC1.scaffold1337.3
+SymbC1.scaffold13373.1
+SymbC1.scaffold134.1
+SymbC1.scaffold1341.11	K21360
+SymbC1.scaffold13463.1
+SymbC1.scaffold135.8	K01358
+SymbC1.scaffold1355.9	K07304
+SymbC1.scaffold1358.11
+SymbC1.scaffold136.7
+SymbC1.scaffold13620.1
+SymbC1.scaffold1364.10
+SymbC1.scaffold1365.5
+SymbC1.scaffold13663.2
+SymbC1.scaffold1367.3
+SymbC1.scaffold1368.5
+SymbC1.scaffold13694.1
+SymbC1.scaffold1375.1	K00088
+SymbC1.scaffold1379.6
+SymbC1.scaffold1380.1	K07874
+SymbC1.scaffold1381.4	K03235
+SymbC1.scaffold1388.1
+SymbC1.scaffold1389.4	K23565
+SymbC1.scaffold139.9	K13720
+SymbC1.scaffold13905.1
+SymbC1.scaffold13925.2
+SymbC1.scaffold1393.2
+SymbC1.scaffold13958.1
+SymbC1.scaffold1398.5
+SymbC1.scaffold1415.6
+SymbC1.scaffold1415.7
+SymbC1.scaffold1415.9
+SymbC1.scaffold14153.1
+SymbC1.scaffold1417.4	K01624
+SymbC1.scaffold1423.11
+SymbC1.scaffold1423.12
+SymbC1.scaffold143.16
+SymbC1.scaffold14331.1	K01134
+SymbC1.scaffold1438.6
+SymbC1.scaffold1440.3	K03456
+SymbC1.scaffold14435.2
+SymbC1.scaffold1448.10
+SymbC1.scaffold1448.4	K02358
+SymbC1.scaffold1449.3	K00235
+SymbC1.scaffold1450.3
+SymbC1.scaffold14521.1
+SymbC1.scaffold1455.4
+SymbC1.scaffold1458.2	K01225
+SymbC1.scaffold1458.5	K02145
+SymbC1.scaffold14592.1
+SymbC1.scaffold146.6
+SymbC1.scaffold1466.4
+SymbC1.scaffold1468.1
+SymbC1.scaffold147.12	K02730
+SymbC1.scaffold1472.1
+SymbC1.scaffold1473.1	K00167
+SymbC1.scaffold1473.4
+SymbC1.scaffold1497.7	K03283
+SymbC1.scaffold15.353
+SymbC1.scaffold150.13
+SymbC1.scaffold1503.7
+SymbC1.scaffold1504.3
+SymbC1.scaffold1512.5	K17732
+SymbC1.scaffold1517.7
+SymbC1.scaffold1519.3
+SymbC1.scaffold152.9
+SymbC1.scaffold1520.6	K02641
+SymbC1.scaffold15227.1
+SymbC1.scaffold1523.3
+SymbC1.scaffold153.7
+SymbC1.scaffold1534.2
+SymbC1.scaffold1535.2
+SymbC1.scaffold1535.5	K12373
+SymbC1.scaffold1536.4
+SymbC1.scaffold1537.2
+SymbC1.scaffold1537.4
+SymbC1.scaffold1540.9
+SymbC1.scaffold1541.4	K04499
+SymbC1.scaffold1543.5	K09498
+SymbC1.scaffold1544.3
+SymbC1.scaffold15470.1	K09486
+SymbC1.scaffold1549.3
+SymbC1.scaffold1556.8	K12889
+SymbC1.scaffold156.1
+SymbC1.scaffold1562.1
+SymbC1.scaffold1569.2
+SymbC1.scaffold157.10	K01885
+SymbC1.scaffold1571.2	K00088
+SymbC1.scaffold1573.8
+SymbC1.scaffold1576.10	K02108
+SymbC1.scaffold1576.12	K01870
+SymbC1.scaffold1576.4
+SymbC1.scaffold1578.6
+SymbC1.scaffold1582.5	K00939
+SymbC1.scaffold1585.9
+SymbC1.scaffold1589.5
+SymbC1.scaffold159.1
+SymbC1.scaffold1593.4	K02872
+SymbC1.scaffold16.337
+SymbC1.scaffold1600.3
+SymbC1.scaffold1602.13
+SymbC1.scaffold1608.10
+SymbC1.scaffold1608.2	K04567
+SymbC1.scaffold16094.1	K08057
+SymbC1.scaffold1610.2
+SymbC1.scaffold1616.11
+SymbC1.scaffold16252.3
+SymbC1.scaffold1636.3	K03217
+SymbC1.scaffold1639.5
+SymbC1.scaffold16443.1
+SymbC1.scaffold1646.1	K08679
+SymbC1.scaffold1648.2
+SymbC1.scaffold1658.2	K00128
+SymbC1.scaffold166.5
+SymbC1.scaffold1664.8
+SymbC1.scaffold1665.1
+SymbC1.scaffold168.6
+SymbC1.scaffold1697.1
+SymbC1.scaffold1699.7
+SymbC1.scaffold170.11	K03696
+SymbC1.scaffold170.12
+SymbC1.scaffold170.4	K02886
+SymbC1.scaffold1702.5	K01599
+SymbC1.scaffold1704.4
+SymbC1.scaffold1707.2
+SymbC1.scaffold171.1
+SymbC1.scaffold171.4
+SymbC1.scaffold1712.1
+SymbC1.scaffold1716.4
+SymbC1.scaffold1717.1
+SymbC1.scaffold1719.2
+SymbC1.scaffold1719.3
+SymbC1.scaffold1721.5	K00545
+SymbC1.scaffold1733.10
+SymbC1.scaffold175.5
+SymbC1.scaffold1750.7
+SymbC1.scaffold1753.1
+SymbC1.scaffold1753.10
+SymbC1.scaffold1758.2	K01267
+SymbC1.scaffold176.4
+SymbC1.scaffold176.6
+SymbC1.scaffold1764.4	K17302
+SymbC1.scaffold1768.5
+SymbC1.scaffold1773.2
+SymbC1.scaffold1774.5	K00703
+SymbC1.scaffold1777.14
+SymbC1.scaffold1781.7
+SymbC1.scaffold1788.2
+SymbC1.scaffold17953.1	K01662
+SymbC1.scaffold1798.1
+SymbC1.scaffold1799.1
+SymbC1.scaffold18041.2
+SymbC1.scaffold1811.7
+SymbC1.scaffold1814.1
+SymbC1.scaffold1817.6
+SymbC1.scaffold1819.6
+SymbC1.scaffold182.2
+SymbC1.scaffold182.4
+SymbC1.scaffold182.9
+SymbC1.scaffold1820.2	K15029
+SymbC1.scaffold1828.7
+SymbC1.scaffold18299.1
+SymbC1.scaffold18339.1
+SymbC1.scaffold1836.9
+SymbC1.scaffold184.1
+SymbC1.scaffold18429.1
+SymbC1.scaffold1843.1	K01915
+SymbC1.scaffold1843.9	K00434
+SymbC1.scaffold1844.3
+SymbC1.scaffold1857.2	K21594
+SymbC1.scaffold1859.4	K03428
+SymbC1.scaffold186.5	K17681
+SymbC1.scaffold1862.1
+SymbC1.scaffold1862.2
+SymbC1.scaffold1867.3
+SymbC1.scaffold1885.1	K11170
+SymbC1.scaffold1889.8
+SymbC1.scaffold1897.4
+SymbC1.scaffold1897.6
+SymbC1.scaffold18976.1
+SymbC1.scaffold1902.2
+SymbC1.scaffold1905.1
+SymbC1.scaffold1905.3
+SymbC1.scaffold191.9
+SymbC1.scaffold1921.8
+SymbC1.scaffold1928.1
+SymbC1.scaffold1928.3
+SymbC1.scaffold193.11
+SymbC1.scaffold1932.6
+SymbC1.scaffold1935.6	K02731
+SymbC1.scaffold194.5
+SymbC1.scaffold194.9	K10419
+SymbC1.scaffold1940.6	K01900
+SymbC1.scaffold1947.6	K20011
+SymbC1.scaffold195.5
+SymbC1.scaffold1950.1
+SymbC1.scaffold1954.2	K16302
+SymbC1.scaffold1954.5	K02891
+SymbC1.scaffold1954.8
+SymbC1.scaffold1959.1
+SymbC1.scaffold196.4
+SymbC1.scaffold19627.1
+SymbC1.scaffold1975.6
+SymbC1.scaffold1979.3	K02880
+SymbC1.scaffold1986.3	K01803
+SymbC1.scaffold19861.1
+SymbC1.scaffold1987.3
+SymbC1.scaffold1989.3
+SymbC1.scaffold1999.2
+SymbC1.scaffold2.1717
+SymbC1.scaffold2.1958
+SymbC1.scaffold2.343
+SymbC1.scaffold2004.10	K18106
+SymbC1.scaffold201.1	K12580
+SymbC1.scaffold201.11
+SymbC1.scaffold2010.2
+SymbC1.scaffold2015.2
+SymbC1.scaffold202.11
+SymbC1.scaffold202.15	K22503
+SymbC1.scaffold2022.5
+SymbC1.scaffold203.5
+SymbC1.scaffold2030.3
+SymbC1.scaffold2037.5
+SymbC1.scaffold2040.5	K01834
+SymbC1.scaffold2041.6	K00134
+SymbC1.scaffold2043.5	K01135
+SymbC1.scaffold2057.1
+SymbC1.scaffold2057.2
+SymbC1.scaffold206.10
+SymbC1.scaffold206.6	K00428
+SymbC1.scaffold2060.5
+SymbC1.scaffold2062.2	K25656
+SymbC1.scaffold2062.8
+SymbC1.scaffold2069.6
+SymbC1.scaffold2070.5
+SymbC1.scaffold2076.2	K01634
+SymbC1.scaffold2079.1
+SymbC1.scaffold2092.2	K01880
+SymbC1.scaffold2094.3
+SymbC1.scaffold21.411
+SymbC1.scaffold210.13
+SymbC1.scaffold2101.2	K01940
+SymbC1.scaffold2106.6	K18468
+SymbC1.scaffold2106.8
+SymbC1.scaffold2113.3	K02115
+SymbC1.scaffold2114.3
+SymbC1.scaffold2121.3
+SymbC1.scaffold21224.1
+SymbC1.scaffold2130.1
+SymbC1.scaffold2139.4
+SymbC1.scaffold2144.5	K05610
+SymbC1.scaffold2147.6
+SymbC1.scaffold215.16	K01192
+SymbC1.scaffold215.2
+SymbC1.scaffold2153.1
+SymbC1.scaffold2153.2	K22074
+SymbC1.scaffold2157.1
+SymbC1.scaffold2161.2
+SymbC1.scaffold2173.2
+SymbC1.scaffold2178.1	K07513
+SymbC1.scaffold2178.2	K07513
+SymbC1.scaffold2179.3
+SymbC1.scaffold2185.4
+SymbC1.scaffold2186.3
+SymbC1.scaffold2188.1
+SymbC1.scaffold2189.3
+SymbC1.scaffold2191.10	K07304
+SymbC1.scaffold2191.5
+SymbC1.scaffold220.12
+SymbC1.scaffold220.20	K03033
+SymbC1.scaffold2202.3
+SymbC1.scaffold2207.2
+SymbC1.scaffold2209.5
+SymbC1.scaffold2209.6	K11086
+SymbC1.scaffold2209.9
+SymbC1.scaffold221.10	K04797
+SymbC1.scaffold221.4
+SymbC1.scaffold2210.2
+SymbC1.scaffold2211.3
+SymbC1.scaffold2216.1	K02998
+SymbC1.scaffold2217.2
+SymbC1.scaffold2219.5	K18059
+SymbC1.scaffold2230.2
+SymbC1.scaffold2234.5
+SymbC1.scaffold2242.1
+SymbC1.scaffold225.6
+SymbC1.scaffold2250.4
+SymbC1.scaffold2253.2
+SymbC1.scaffold2256.4
+SymbC1.scaffold2271.3
+SymbC1.scaffold2275.3	K10960
+SymbC1.scaffold2285.6	K07407
+SymbC1.scaffold2286.3
+SymbC1.scaffold2286.7
+SymbC1.scaffold2289.2
+SymbC1.scaffold2291.3
+SymbC1.scaffold2295.2
+SymbC1.scaffold2296.2	K00254
+SymbC1.scaffold2305.2
+SymbC1.scaffold2306.2
+SymbC1.scaffold2315.3
+SymbC1.scaffold2321.3
+SymbC1.scaffold2321.7
+SymbC1.scaffold2335.3
+SymbC1.scaffold2342.3
+SymbC1.scaffold2349.4
+SymbC1.scaffold235.6	K02865
+SymbC1.scaffold2355.3
+SymbC1.scaffold236.11	K01702
+SymbC1.scaffold236.4
+SymbC1.scaffold236.7
+SymbC1.scaffold236.9
+SymbC1.scaffold2366.10
+SymbC1.scaffold2366.6	K05692
+SymbC1.scaffold2368.3	K01251
+SymbC1.scaffold237.7
+SymbC1.scaffold2372.2
+SymbC1.scaffold2372.7
+SymbC1.scaffold2373.2	K02966
+SymbC1.scaffold2377.7	K03841
+SymbC1.scaffold238.4	K01873
+SymbC1.scaffold2381.4	K18338
+SymbC1.scaffold2388.2
+SymbC1.scaffold240.13
+SymbC1.scaffold240.6
+SymbC1.scaffold2402.4	K09490
+SymbC1.scaffold2404.2	K01365
+SymbC1.scaffold2414.4
+SymbC1.scaffold2418.3
+SymbC1.scaffold2427.4
+SymbC1.scaffold2428.4
+SymbC1.scaffold2443.4
+SymbC1.scaffold245.22
+SymbC1.scaffold2453.2
+SymbC1.scaffold2461.10	K01759
+SymbC1.scaffold2470.5
+SymbC1.scaffold2472.7
+SymbC1.scaffold248.13
+SymbC1.scaffold2484.2
+SymbC1.scaffold2487.2
+SymbC1.scaffold2487.3
+SymbC1.scaffold2502.4
+SymbC1.scaffold2505.1
+SymbC1.scaffold2505.2
+SymbC1.scaffold251.4
+SymbC1.scaffold251.5
+SymbC1.scaffold251.9
+SymbC1.scaffold2516.2	K03885
+SymbC1.scaffold2516.4
+SymbC1.scaffold2518.1
+SymbC1.scaffold2519.3
+SymbC1.scaffold252.15
+SymbC1.scaffold252.18
+SymbC1.scaffold2522.3
+SymbC1.scaffold2522.4
+SymbC1.scaffold2539.3
+SymbC1.scaffold2539.6
+SymbC1.scaffold2544.2
+SymbC1.scaffold2548.2	K11153
+SymbC1.scaffold2557.5	K03253
+SymbC1.scaffold2560.1
+SymbC1.scaffold2561.2
+SymbC1.scaffold2564.3
+SymbC1.scaffold25734.1
+SymbC1.scaffold258.5
+SymbC1.scaffold258.6
+SymbC1.scaffold2588.7	K02135
+SymbC1.scaffold2589.2	K01835
+SymbC1.scaffold2592.2
+SymbC1.scaffold2593.4
+SymbC1.scaffold260.2
+SymbC1.scaffold2601.11	K12857
+SymbC1.scaffold2601.12
+SymbC1.scaffold2601.17	K02882
+SymbC1.scaffold2601.7
+SymbC1.scaffold2606.7	K05681
+SymbC1.scaffold2607.1	K05863
+SymbC1.scaffold261.9
+SymbC1.scaffold2613.8
+SymbC1.scaffold2622.1
+SymbC1.scaffold2636.2	K00281
+SymbC1.scaffold2640.1	K03267
+SymbC1.scaffold2642.2
+SymbC1.scaffold2643.4
+SymbC1.scaffold2668.1
+SymbC1.scaffold2689.2
+SymbC1.scaffold2695.12
+SymbC1.scaffold2695.2
+SymbC1.scaffold2700.6
+SymbC1.scaffold2700.7	K08193
+SymbC1.scaffold2709.5	K18059
+SymbC1.scaffold271.2
+SymbC1.scaffold2715.4
+SymbC1.scaffold2715.8	K01725
+SymbC1.scaffold272.13	K00800
+SymbC1.scaffold2720.1
+SymbC1.scaffold2721.1
+SymbC1.scaffold2722.2
+SymbC1.scaffold2724.3
+SymbC1.scaffold273.1
+SymbC1.scaffold2730.1
+SymbC1.scaffold2733.1
+SymbC1.scaffold2733.2
+SymbC1.scaffold2738.1
+SymbC1.scaffold2741.1
+SymbC1.scaffold2754.1
+SymbC1.scaffold276.1	K03189
+SymbC1.scaffold2764.2
+SymbC1.scaffold2776.1
+SymbC1.scaffold2776.6
+SymbC1.scaffold2776.7
+SymbC1.scaffold2781.4	K09499
+SymbC1.scaffold2788.1
+SymbC1.scaffold279.9
+SymbC1.scaffold2791.2	K11717
+SymbC1.scaffold2795.1
+SymbC1.scaffold2797.3
+SymbC1.scaffold2798.1	K12812
+SymbC1.scaffold282.10	K01697
+SymbC1.scaffold2820.1
+SymbC1.scaffold2821.3
+SymbC1.scaffold2826.1
+SymbC1.scaffold283.3
+SymbC1.scaffold2836.3
+SymbC1.scaffold284.5
+SymbC1.scaffold2848.2
+SymbC1.scaffold2849.4
+SymbC1.scaffold285.4
+SymbC1.scaffold2850.6
+SymbC1.scaffold2851.6
+SymbC1.scaffold2853.1
+SymbC1.scaffold2855.6
+SymbC1.scaffold2856.1	K05236
+SymbC1.scaffold2858.5	K09554
+SymbC1.scaffold2858.6
+SymbC1.scaffold2860.4	K00831
+SymbC1.scaffold2862.3
+SymbC1.scaffold2866.4	K12619
+SymbC1.scaffold2867.1
+SymbC1.scaffold2867.6	K02991
+SymbC1.scaffold2876.2
+SymbC1.scaffold288.4
+SymbC1.scaffold2891.2
+SymbC1.scaffold2898.2
+SymbC1.scaffold291.11
+SymbC1.scaffold291.12	K12854
+SymbC1.scaffold2911.1	K12391
+SymbC1.scaffold2913.4
+SymbC1.scaffold2914.1
+SymbC1.scaffold2918.1
+SymbC1.scaffold2919.2
+SymbC1.scaffold2924.5	K00639
+SymbC1.scaffold2924.6	K17286
+SymbC1.scaffold2945.3
+SymbC1.scaffold2948.1	K01006
+SymbC1.scaffold2961.2
+SymbC1.scaffold2962.5
+SymbC1.scaffold2966.4	K10704
+SymbC1.scaffold2968.4
+SymbC1.scaffold2977.1
+SymbC1.scaffold2977.4	K11204
+SymbC1.scaffold2978.3
+SymbC1.scaffold2988.2
+SymbC1.scaffold2991.5
+SymbC1.scaffold2998.4
+SymbC1.scaffold2999.1
+SymbC1.scaffold3000.1
+SymbC1.scaffold3006.11
+SymbC1.scaffold3006.9
+SymbC1.scaffold3018.3
+SymbC1.scaffold3021.4	K02998
+SymbC1.scaffold3034.6	K13989
+SymbC1.scaffold3034.7
+SymbC1.scaffold304.12
+SymbC1.scaffold3049.2
+SymbC1.scaffold305.11
+SymbC1.scaffold3054.2	K06997
+SymbC1.scaffold3054.3
+SymbC1.scaffold3057.1
+SymbC1.scaffold306.1
+SymbC1.scaffold3067.6
+SymbC1.scaffold3070.7
+SymbC1.scaffold3080.6	K00645
+SymbC1.scaffold3084.4
+SymbC1.scaffold3086.2
+SymbC1.scaffold3087.1
+SymbC1.scaffold3089.3
+SymbC1.scaffold3096.1	K17499
+SymbC1.scaffold3099.3	K03696
+SymbC1.scaffold3103.4	K04371
+SymbC1.scaffold3119.1
+SymbC1.scaffold3123.1	K11098
+SymbC1.scaffold313.11	K17080
+SymbC1.scaffold314.5
+SymbC1.scaffold314.7	K13523
+SymbC1.scaffold3142.3	K01652
+SymbC1.scaffold3145.2
+SymbC1.scaffold3151.1	K10839
+SymbC1.scaffold3153.6
+SymbC1.scaffold3154.1
+SymbC1.scaffold3156.2	K01624
+SymbC1.scaffold316.13
+SymbC1.scaffold316.20
+SymbC1.scaffold3161.5
+SymbC1.scaffold3177.1
+SymbC1.scaffold3183.5	K08057
+SymbC1.scaffold3185.2
+SymbC1.scaffold3188.2
+SymbC1.scaffold3192.2
+SymbC1.scaffold3197.1
+SymbC1.scaffold3201.7	K15102
+SymbC1.scaffold3205.1	K01696
+SymbC1.scaffold3210.2
+SymbC1.scaffold3214.2
+SymbC1.scaffold3216.5
+SymbC1.scaffold322.4
+SymbC1.scaffold3223.5
+SymbC1.scaffold3227.3
+SymbC1.scaffold3233.6
+SymbC1.scaffold3239.3
+SymbC1.scaffold324.13	K01689
+SymbC1.scaffold3256.4
+SymbC1.scaffold3269.4	K12823
+SymbC1.scaffold3278.4
+SymbC1.scaffold3279.5	K03521
+SymbC1.scaffold328.20	K01647
+SymbC1.scaffold3282.5
+SymbC1.scaffold3298.2	K13886
+SymbC1.scaffold3306.5	K03146
+SymbC1.scaffold3317.3
+SymbC1.scaffold3330.4	K01205
+SymbC1.scaffold3330.9
+SymbC1.scaffold3333.1
+SymbC1.scaffold3335.3
+SymbC1.scaffold335.2
+SymbC1.scaffold335.3
+SymbC1.scaffold3351.1	K03527
+SymbC1.scaffold3351.4
+SymbC1.scaffold3353.3	K06630
+SymbC1.scaffold3365.1
+SymbC1.scaffold3371.1
+SymbC1.scaffold3373.7
+SymbC1.scaffold3373.8
+SymbC1.scaffold339.11
+SymbC1.scaffold339.13
+SymbC1.scaffold3397.1
+SymbC1.scaffold3402.1	K15104
+SymbC1.scaffold3403.1	K04794
+SymbC1.scaffold3412.1	K01714
+SymbC1.scaffold3414.3
+SymbC1.scaffold3422.8
+SymbC1.scaffold3427.3	K00234
+SymbC1.scaffold3428.2	K01006
+SymbC1.scaffold3428.3
+SymbC1.scaffold3428.5
+SymbC1.scaffold3432.4
+SymbC1.scaffold344.1	K01278
+SymbC1.scaffold344.6
+SymbC1.scaffold3441.2
+SymbC1.scaffold3443.2
+SymbC1.scaffold3462.3
+SymbC1.scaffold3491.9	K18703
+SymbC1.scaffold3493.2	K03767
+SymbC1.scaffold3501.1
+SymbC1.scaffold3501.4	K22069
+SymbC1.scaffold3508.4	K14297
+SymbC1.scaffold351.7
+SymbC1.scaffold352.2	K00223
+SymbC1.scaffold3520.1	K23025
+SymbC1.scaffold3521.3	K11390
+SymbC1.scaffold3526.2
+SymbC1.scaffold3527.3
+SymbC1.scaffold3527.5
+SymbC1.scaffold3532.3
+SymbC1.scaffold3544.4
+SymbC1.scaffold3546.4
+SymbC1.scaffold3556.1
+SymbC1.scaffold356.1
+SymbC1.scaffold356.19	K02900
+SymbC1.scaffold3578.1
+SymbC1.scaffold3580.4
+SymbC1.scaffold3580.5
+SymbC1.scaffold3581.1
+SymbC1.scaffold3581.2
+SymbC1.scaffold3586.3
+SymbC1.scaffold3589.1	K01689
+SymbC1.scaffold3593.2	K01648
+SymbC1.scaffold360.4	K01755
+SymbC1.scaffold361.4
+SymbC1.scaffold3612.4	K13800
+SymbC1.scaffold3621.4
+SymbC1.scaffold364.7	K12835
+SymbC1.scaffold3640.2	K14007
+SymbC1.scaffold3646.3	K03773
+SymbC1.scaffold3650.2
+SymbC1.scaffold3656.5	K03238
+SymbC1.scaffold3660.3
+SymbC1.scaffold3663.1	K02293
+SymbC1.scaffold3664.1	K15423
+SymbC1.scaffold3678.4
+SymbC1.scaffold3678.5
+SymbC1.scaffold3680.1
+SymbC1.scaffold3685.2
+SymbC1.scaffold3695.1
+SymbC1.scaffold370.1
+SymbC1.scaffold3704.3
+SymbC1.scaffold371.1	K01915
+SymbC1.scaffold371.9
+SymbC1.scaffold3718.1
+SymbC1.scaffold3731.3	K01610
+SymbC1.scaffold3744.1
+SymbC1.scaffold3753.2	K14163
+SymbC1.scaffold3763.2
+SymbC1.scaffold3765.2	K03070
+SymbC1.scaffold3771.1
+SymbC1.scaffold3772.1
+SymbC1.scaffold3773.2	K00878
+SymbC1.scaffold3777.1
+SymbC1.scaffold3795.1	K10684
+SymbC1.scaffold38.8
+SymbC1.scaffold380.3	K23025
+SymbC1.scaffold380.5	K00600
+SymbC1.scaffold3805.2
+SymbC1.scaffold3821.2
+SymbC1.scaffold3826.2
+SymbC1.scaffold3829.2
+SymbC1.scaffold3830.1	K01676
+SymbC1.scaffold3831.1	K03800
+SymbC1.scaffold384.2
+SymbC1.scaffold3840.3
+SymbC1.scaffold3848.5
+SymbC1.scaffold3861.2	K02154
+SymbC1.scaffold3862.1
+SymbC1.scaffold3864.6
+SymbC1.scaffold387.1
+SymbC1.scaffold3870.3
+SymbC1.scaffold3878.1	K02132
+SymbC1.scaffold3881.3
+SymbC1.scaffold3886.10
+SymbC1.scaffold3888.3
+SymbC1.scaffold3893.1
+SymbC1.scaffold3901.3	K00605
+SymbC1.scaffold3903.3
+SymbC1.scaffold3922.2
+SymbC1.scaffold3928.2	K03235
+SymbC1.scaffold3933.2
+SymbC1.scaffold3940.4
+SymbC1.scaffold3946.4
+SymbC1.scaffold3950.3	K02693
+SymbC1.scaffold3950.6
+SymbC1.scaffold3953.2
+SymbC1.scaffold396.4
+SymbC1.scaffold396.8
+SymbC1.scaffold396.9
+SymbC1.scaffold3965.3
+SymbC1.scaffold3982.2
+SymbC1.scaffold3996.1	K00013
+SymbC1.scaffold3999.1
+SymbC1.scaffold4.1176
+SymbC1.scaffold4.1292
+SymbC1.scaffold4.233
+SymbC1.scaffold40.5
+SymbC1.scaffold4006.5	K00101
+SymbC1.scaffold4010.6
+SymbC1.scaffold4039.3
+SymbC1.scaffold404.6	K09500
+SymbC1.scaffold4041.2
+SymbC1.scaffold4044.2	K01254
+SymbC1.scaffold4051.1	K01711
+SymbC1.scaffold406.3	K12823
+SymbC1.scaffold406.5	K20471
+SymbC1.scaffold4068.1
+SymbC1.scaffold4081.2
+SymbC1.scaffold4085.3	K01689
+SymbC1.scaffold409.10	K08869
+SymbC1.scaffold409.14	K02925
+SymbC1.scaffold409.5
+SymbC1.scaffold4102.1
+SymbC1.scaffold4104.2
+SymbC1.scaffold4113.3
+SymbC1.scaffold4115.3
+SymbC1.scaffold412.4
+SymbC1.scaffold412.6
+SymbC1.scaffold4124.4
+SymbC1.scaffold413.8
+SymbC1.scaffold4133.1
+SymbC1.scaffold4141.1
+SymbC1.scaffold415.15
+SymbC1.scaffold415.17
+SymbC1.scaffold415.2	K01872
+SymbC1.scaffold415.6
+SymbC1.scaffold415.8	K00873
+SymbC1.scaffold415.9
+SymbC1.scaffold4150.3	K00434
+SymbC1.scaffold4166.2
+SymbC1.scaffold4168.4
+SymbC1.scaffold4178.4	K03165
+SymbC1.scaffold4178.5	K02357
+SymbC1.scaffold418.12
+SymbC1.scaffold4182.1
+SymbC1.scaffold4186.1
+SymbC1.scaffold4199.1
+SymbC1.scaffold42.4
+SymbC1.scaffold4200.1	K01507
+SymbC1.scaffold4201.6
+SymbC1.scaffold4202.2
+SymbC1.scaffold4205.3
+SymbC1.scaffold421.1
+SymbC1.scaffold4211.1	K12447
+SymbC1.scaffold4213.1
+SymbC1.scaffold4218.1	K01256
+SymbC1.scaffold4223.1
+SymbC1.scaffold4224.1
+SymbC1.scaffold4230.1
+SymbC1.scaffold4242.2
+SymbC1.scaffold4251.1	K17506
+SymbC1.scaffold4253.3
+SymbC1.scaffold426.1	K02146
+SymbC1.scaffold4281.2
+SymbC1.scaffold4285.5	K25895
+SymbC1.scaffold43.1
+SymbC1.scaffold43.6
+SymbC1.scaffold430.3
+SymbC1.scaffold4308.2	K02725
+SymbC1.scaffold4311.1
+SymbC1.scaffold4316.1
+SymbC1.scaffold4319.2
+SymbC1.scaffold432.1	K01515
+SymbC1.scaffold4320.3
+SymbC1.scaffold433.10	K12877
+SymbC1.scaffold4336.4
+SymbC1.scaffold4336.9
+SymbC1.scaffold4340.1
+SymbC1.scaffold4342.3
+SymbC1.scaffold4349.1
+SymbC1.scaffold4363.6
+SymbC1.scaffold4365.1	K01253
+SymbC1.scaffold4372.2
+SymbC1.scaffold4375.3
+SymbC1.scaffold438.2
+SymbC1.scaffold4384.2
+SymbC1.scaffold4388.1
+SymbC1.scaffold439.6	K07152
+SymbC1.scaffold4397.2	K01535
+SymbC1.scaffold44.11
+SymbC1.scaffold44.13
+SymbC1.scaffold44.19	K03246
+SymbC1.scaffold4402.2
+SymbC1.scaffold4402.7
+SymbC1.scaffold4414.2	K00655
+SymbC1.scaffold4424.2	K01845
+SymbC1.scaffold443.8
+SymbC1.scaffold4450.1
+SymbC1.scaffold4454.1
+SymbC1.scaffold4458.4
+SymbC1.scaffold4458.5
+SymbC1.scaffold4474.3
+SymbC1.scaffold4479.7	K12826
+SymbC1.scaffold448.7
+SymbC1.scaffold4484.2
+SymbC1.scaffold4484.3	K14309
+SymbC1.scaffold4493.1
+SymbC1.scaffold4499.5
+SymbC1.scaffold45.7
+SymbC1.scaffold450.13
+SymbC1.scaffold4514.2
+SymbC1.scaffold4516.6	K10536
+SymbC1.scaffold4517.4
+SymbC1.scaffold4523.2
+SymbC1.scaffold4533.5
+SymbC1.scaffold4549.1	K01915
+SymbC1.scaffold4568.1
+SymbC1.scaffold4598.2	K01061
+SymbC1.scaffold460.6	K03061
+SymbC1.scaffold460.7
+SymbC1.scaffold4604.1
+SymbC1.scaffold461.1	K25895
+SymbC1.scaffold4615.1
+SymbC1.scaffold4616.3	K03462
+SymbC1.scaffold4617.2
+SymbC1.scaffold4617.7
+SymbC1.scaffold4617.9
+SymbC1.scaffold462.13
+SymbC1.scaffold4620.1
+SymbC1.scaffold4621.3
+SymbC1.scaffold4627.1
+SymbC1.scaffold463.5	K01720
+SymbC1.scaffold4647.7
+SymbC1.scaffold4648.1
+SymbC1.scaffold465.10	K00134
+SymbC1.scaffold465.8
+SymbC1.scaffold4650.4	K01689
+SymbC1.scaffold4655.1
+SymbC1.scaffold466.6	K02835
+SymbC1.scaffold467.2
+SymbC1.scaffold4673.1
+SymbC1.scaffold469.10
+SymbC1.scaffold4690.1
+SymbC1.scaffold4690.2
+SymbC1.scaffold4712.2	K13025
+SymbC1.scaffold4714.1
+SymbC1.scaffold4715.5
+SymbC1.scaffold4716.3	K11729
+SymbC1.scaffold472.9
+SymbC1.scaffold4722.5	K15013
+SymbC1.scaffold4722.6
+SymbC1.scaffold4722.9
+SymbC1.scaffold4726.3	K12392
+SymbC1.scaffold4742.1	K16197
+SymbC1.scaffold4759.2
+SymbC1.scaffold4759.4
+SymbC1.scaffold4763.1	K01610
+SymbC1.scaffold4768.5	K00387
+SymbC1.scaffold4769.4
+SymbC1.scaffold4779.6
+SymbC1.scaffold479.4
+SymbC1.scaffold4797.2
+SymbC1.scaffold48.5	K05349
+SymbC1.scaffold4800.6
+SymbC1.scaffold4815.1
+SymbC1.scaffold4824.5
+SymbC1.scaffold4827.5
+SymbC1.scaffold4827.6
+SymbC1.scaffold4827.7	K15498
+SymbC1.scaffold483.2	K04043
+SymbC1.scaffold4831.2
+SymbC1.scaffold4833.1	K01663
+SymbC1.scaffold4838.1	K13126
+SymbC1.scaffold4855.3
+SymbC1.scaffold4856.1
+SymbC1.scaffold4869.1
+SymbC1.scaffold4879.2
+SymbC1.scaffold489.2	K01188
+SymbC1.scaffold491.1	K10527
+SymbC1.scaffold4913.1	K00225
+SymbC1.scaffold4918.2
+SymbC1.scaffold492.3
+SymbC1.scaffold4948.2	K12832
+SymbC1.scaffold495.2
+SymbC1.scaffold4958.1	K00129
+SymbC1.scaffold4966.3
+SymbC1.scaffold4967.3
+SymbC1.scaffold497.8	K13126
+SymbC1.scaffold4971.1	K01756
+SymbC1.scaffold4973.3	K03283
+SymbC1.scaffold499.6
+SymbC1.scaffold4992.7	K12625
+SymbC1.scaffold4993.1
+SymbC1.scaffold4995.2	K01770
+SymbC1.scaffold5.2
+SymbC1.scaffold5001.1	K01652
+SymbC1.scaffold5018.4	K02889
+SymbC1.scaffold5019.1
+SymbC1.scaffold5041.4	K09495
+SymbC1.scaffold507.6
+SymbC1.scaffold5071.1
+SymbC1.scaffold508.5
+SymbC1.scaffold5085.3
+SymbC1.scaffold5085.5
+SymbC1.scaffold5097.2	K00357
+SymbC1.scaffold511.1
+SymbC1.scaffold5110.2
+SymbC1.scaffold5121.1
+SymbC1.scaffold513.1
+SymbC1.scaffold513.6
+SymbC1.scaffold5137.1	K01783
+SymbC1.scaffold5141.3
+SymbC1.scaffold5158.4
+SymbC1.scaffold5181.1
+SymbC1.scaffold519.12
+SymbC1.scaffold520.1	K09496
+SymbC1.scaffold520.2
+SymbC1.scaffold5204.1
+SymbC1.scaffold5206.2
+SymbC1.scaffold5219.1
+SymbC1.scaffold523.3
+SymbC1.scaffold5230.1
+SymbC1.scaffold5240.4	K03265
+SymbC1.scaffold5246.3
+SymbC1.scaffold5247.3
+SymbC1.scaffold5248.2
+SymbC1.scaffold526.10
+SymbC1.scaffold526.7	K11717
+SymbC1.scaffold5269.3
+SymbC1.scaffold5278.1
+SymbC1.scaffold529.5	K02356
+SymbC1.scaffold531.2	K18798
+SymbC1.scaffold5318.1
+SymbC1.scaffold532.7
+SymbC1.scaffold5334.2	K08967
+SymbC1.scaffold5339.3	K12733
+SymbC1.scaffold5342.4	K00294
+SymbC1.scaffold5344.4
+SymbC1.scaffold535.3
+SymbC1.scaffold535.6	K12823
+SymbC1.scaffold5350.2
+SymbC1.scaffold5372.1
+SymbC1.scaffold5373.3
+SymbC1.scaffold5374.1
+SymbC1.scaffold538.6
+SymbC1.scaffold539.2	K09839
+SymbC1.scaffold5391.6	K00218
+SymbC1.scaffold541.8
+SymbC1.scaffold5410.2	K03522
+SymbC1.scaffold5445.3
+SymbC1.scaffold545.5
+SymbC1.scaffold546.4	K00850
+SymbC1.scaffold547.6
+SymbC1.scaffold5471.2
+SymbC1.scaffold5479.2
+SymbC1.scaffold548.4
+SymbC1.scaffold5480.2	K01802
+SymbC1.scaffold5490.3
+SymbC1.scaffold5493.1
+SymbC1.scaffold5495.2	K08907
+SymbC1.scaffold550.5
+SymbC1.scaffold5501.1	K00927
+SymbC1.scaffold5508.3	K00026
+SymbC1.scaffold5508.6
+SymbC1.scaffold5512.1	K01190
+SymbC1.scaffold552.4	K00963
+SymbC1.scaffold552.9	K23503
+SymbC1.scaffold5535.3
+SymbC1.scaffold5535.4
+SymbC1.scaffold5543.1
+SymbC1.scaffold555.10
+SymbC1.scaffold555.8
+SymbC1.scaffold5552.5
+SymbC1.scaffold556.1
+SymbC1.scaffold556.4	K08244
+SymbC1.scaffold5571.1
+SymbC1.scaffold5573.2	K18758
+SymbC1.scaffold5575.4	K01648
+SymbC1.scaffold5577.1
+SymbC1.scaffold5577.5	K13412
+SymbC1.scaffold5582.1
+SymbC1.scaffold559.2
+SymbC1.scaffold5595.1	K00632
+SymbC1.scaffold56.12
+SymbC1.scaffold5600.2
+SymbC1.scaffold5604.2	K03065
+SymbC1.scaffold561.3	K01135
+SymbC1.scaffold5611.1
+SymbC1.scaffold5617.3
+SymbC1.scaffold563.6
+SymbC1.scaffold5632.1	K00856
+SymbC1.scaffold5634.4	K00799
+SymbC1.scaffold5636.2
+SymbC1.scaffold5657.2
+SymbC1.scaffold5657.3	K05692
+SymbC1.scaffold5658.5
+SymbC1.scaffold5660.2	K15103
+SymbC1.scaffold5667.7
+SymbC1.scaffold5680.3
+SymbC1.scaffold5689.1	K03798
+SymbC1.scaffold570.2
+SymbC1.scaffold5701.4
+SymbC1.scaffold5707.4	K00111
+SymbC1.scaffold572.2
+SymbC1.scaffold5722.1	K09580
+SymbC1.scaffold5723.2	K00079
+SymbC1.scaffold5729.2
+SymbC1.scaffold5744.1
+SymbC1.scaffold5746.1	K19673
+SymbC1.scaffold575.8
+SymbC1.scaffold5755.1	K00026
+SymbC1.scaffold5767.1
+SymbC1.scaffold5787.1
+SymbC1.scaffold5787.2
+SymbC1.scaffold5788.1
+SymbC1.scaffold58.7
+SymbC1.scaffold58.8
+SymbC1.scaffold581.2
+SymbC1.scaffold581.3
+SymbC1.scaffold5821.5
+SymbC1.scaffold584.4
+SymbC1.scaffold5841.3	K03147
+SymbC1.scaffold5857.3
+SymbC1.scaffold5865.4	K03029
+SymbC1.scaffold5865.5
+SymbC1.scaffold5865.6
+SymbC1.scaffold5869.2
+SymbC1.scaffold588.2	K03798
+SymbC1.scaffold588.3	K03798
+SymbC1.scaffold588.8
+SymbC1.scaffold5893.2	K01875
+SymbC1.scaffold59.5
+SymbC1.scaffold590.1	K12298
+SymbC1.scaffold590.2	K11129
+SymbC1.scaffold590.21
+SymbC1.scaffold5901.1
+SymbC1.scaffold5904.3
+SymbC1.scaffold5907.1
+SymbC1.scaffold591.6	K04563
+SymbC1.scaffold5913.3
+SymbC1.scaffold5918.4	K08081
+SymbC1.scaffold5935.2
+SymbC1.scaffold5937.1
+SymbC1.scaffold5947.3
+SymbC1.scaffold596.9
+SymbC1.scaffold597.1
+SymbC1.scaffold5974.3
+SymbC1.scaffold5976.3
+SymbC1.scaffold5979.3
+SymbC1.scaffold5985.3
+SymbC1.scaffold5994.2
+SymbC1.scaffold6006.3	K01090
+SymbC1.scaffold602.2
+SymbC1.scaffold6028.2	K04371
+SymbC1.scaffold6029.1
+SymbC1.scaffold6029.2	K11262
+SymbC1.scaffold6040.6
+SymbC1.scaffold6041.1
+SymbC1.scaffold6041.3
+SymbC1.scaffold6049.1	K07374
+SymbC1.scaffold6056.1
+SymbC1.scaffold6056.2	K09489
+SymbC1.scaffold606.10
+SymbC1.scaffold610.1
+SymbC1.scaffold610.2
+SymbC1.scaffold6108.2
+SymbC1.scaffold6118.20
+SymbC1.scaffold6128.2
+SymbC1.scaffold6131.4	K11412
+SymbC1.scaffold6132.1
+SymbC1.scaffold6142.2
+SymbC1.scaffold6142.3
+SymbC1.scaffold6145.2
+SymbC1.scaffold6145.3
+SymbC1.scaffold6151.3
+SymbC1.scaffold616.6
+SymbC1.scaffold6165.5
+SymbC1.scaffold617.7	K01092
+SymbC1.scaffold6193.1
+SymbC1.scaffold625.16
+SymbC1.scaffold625.4	K02641
+SymbC1.scaffold6257.1
+SymbC1.scaffold6260.2	K09490
+SymbC1.scaffold6278.3
+SymbC1.scaffold6301.2
+SymbC1.scaffold631.3
+SymbC1.scaffold6321.1
+SymbC1.scaffold633.3
+SymbC1.scaffold6345.6
+SymbC1.scaffold6359.3
+SymbC1.scaffold6370.2
+SymbC1.scaffold6370.5	K02858
+SymbC1.scaffold6378.4
+SymbC1.scaffold6394.2
+SymbC1.scaffold640.2
+SymbC1.scaffold6403.2
+SymbC1.scaffold6406.3
+SymbC1.scaffold6409.1
+SymbC1.scaffold6418.3	K09568
+SymbC1.scaffold642.3
+SymbC1.scaffold642.4
+SymbC1.scaffold642.5
+SymbC1.scaffold6432.1
+SymbC1.scaffold6448.2	K03036
+SymbC1.scaffold6449.1	K23485
+SymbC1.scaffold6451.2
+SymbC1.scaffold6456.4
+SymbC1.scaffold6463.2
+SymbC1.scaffold6469.3
+SymbC1.scaffold6478.1
+SymbC1.scaffold649.2	K00927
+SymbC1.scaffold6519.1
+SymbC1.scaffold6531.6	K01887
+SymbC1.scaffold6531.7
+SymbC1.scaffold6541.2
+SymbC1.scaffold6543.1
+SymbC1.scaffold6556.3	K17794
+SymbC1.scaffold656.5
+SymbC1.scaffold657.2	K00486
+SymbC1.scaffold6587.5	K04567
+SymbC1.scaffold66.8
+SymbC1.scaffold660.2
+SymbC1.scaffold661.11
+SymbC1.scaffold661.14
+SymbC1.scaffold6617.2
+SymbC1.scaffold662.7
+SymbC1.scaffold6631.1	K08910
+SymbC1.scaffold6631.3
+SymbC1.scaffold6635.1
+SymbC1.scaffold6648.4
+SymbC1.scaffold6651.1	K15042
+SymbC1.scaffold666.2
+SymbC1.scaffold6661.2
+SymbC1.scaffold6673.4	K00850
+SymbC1.scaffold6685.1	K00761
+SymbC1.scaffold6698.2
+SymbC1.scaffold670.6	K01890
+SymbC1.scaffold6716.2
+SymbC1.scaffold6716.3
+SymbC1.scaffold6721.2
+SymbC1.scaffold6731.1
+SymbC1.scaffold6731.4
+SymbC1.scaffold674.12	K02997
+SymbC1.scaffold676.5	K06215
+SymbC1.scaffold6772.2
+SymbC1.scaffold6791.2
+SymbC1.scaffold6793.2
+SymbC1.scaffold680.2	K02937
+SymbC1.scaffold6820.2	K08675
+SymbC1.scaffold6827.3
+SymbC1.scaffold684.7
+SymbC1.scaffold6879.2
+SymbC1.scaffold6884.2
+SymbC1.scaffold690.7	K22757
+SymbC1.scaffold6915.2	K01689
+SymbC1.scaffold6935.4
+SymbC1.scaffold6938.2
+SymbC1.scaffold694.1	K00615
+SymbC1.scaffold694.6
+SymbC1.scaffold6940.2
+SymbC1.scaffold6945.2
+SymbC1.scaffold697.10
+SymbC1.scaffold698.7
+SymbC1.scaffold6980.3	K00873
+SymbC1.scaffold703.1	K09592
+SymbC1.scaffold7045.1	K05666
+SymbC1.scaffold707.7
+SymbC1.scaffold7081.3
+SymbC1.scaffold7090.3	K01595
+SymbC1.scaffold7128.2	K00927
+SymbC1.scaffold713.1	K00855
+SymbC1.scaffold714.1	K03696
+SymbC1.scaffold714.9
+SymbC1.scaffold7143.1	K04460
+SymbC1.scaffold7145.3
+SymbC1.scaffold7149.1
+SymbC1.scaffold715.10
+SymbC1.scaffold715.8	K08496
+SymbC1.scaffold715.9
+SymbC1.scaffold7218.2
+SymbC1.scaffold7218.3
+SymbC1.scaffold724.9	K11584
+SymbC1.scaffold7245.2
+SymbC1.scaffold7245.4
+SymbC1.scaffold726.4
+SymbC1.scaffold726.6	K00134
+SymbC1.scaffold7270.1
+SymbC1.scaffold7281.2	K00898
+SymbC1.scaffold731.5
+SymbC1.scaffold732.4	K01007
+SymbC1.scaffold732.5	K01007
+SymbC1.scaffold7348.1
+SymbC1.scaffold7353.3	K18703
+SymbC1.scaffold738.3
+SymbC1.scaffold738.4
+SymbC1.scaffold7385.1
+SymbC1.scaffold741.2	K00434
+SymbC1.scaffold7418.1
+SymbC1.scaffold7427.1
+SymbC1.scaffold744.6	K03403
+SymbC1.scaffold745.3
+SymbC1.scaffold7467.3
+SymbC1.scaffold747.4	K00615
+SymbC1.scaffold7488.1
+SymbC1.scaffold7493.1
+SymbC1.scaffold75.10	K00799
+SymbC1.scaffold75.5
+SymbC1.scaffold7514.1
+SymbC1.scaffold7515.2	K01255
+SymbC1.scaffold7520.1	K01805
+SymbC1.scaffold7521.2
+SymbC1.scaffold7524.1
+SymbC1.scaffold7526.6
+SymbC1.scaffold753.10
+SymbC1.scaffold7532.3	K06130
+SymbC1.scaffold7533.1
+SymbC1.scaffold7547.3
+SymbC1.scaffold7548.1
+SymbC1.scaffold757.4	K00600
+SymbC1.scaffold759.1
+SymbC1.scaffold759.3	K12852
+SymbC1.scaffold760.3	K12856
+SymbC1.scaffold7607.5	K03178
+SymbC1.scaffold7615.1
+SymbC1.scaffold7618.1
+SymbC1.scaffold7633.3
+SymbC1.scaffold764.3
+SymbC1.scaffold7673.2	K07374
+SymbC1.scaffold7683.1
+SymbC1.scaffold7685.6
+SymbC1.scaffold7688.2	K07151
+SymbC1.scaffold7698.2	K03252
+SymbC1.scaffold7704.1
+SymbC1.scaffold7725.1
+SymbC1.scaffold7731.1
+SymbC1.scaffold774.4
+SymbC1.scaffold776.22
+SymbC1.scaffold7772.3
+SymbC1.scaffold7787.1
+SymbC1.scaffold7797.3
+SymbC1.scaffold7800.3	K03696
+SymbC1.scaffold782.4
+SymbC1.scaffold782.8
+SymbC1.scaffold784.2
+SymbC1.scaffold7842.3
+SymbC1.scaffold787.8	K00228
+SymbC1.scaffold7884.1
+SymbC1.scaffold7893.2
+SymbC1.scaffold79.11
+SymbC1.scaffold79.2	K06215
+SymbC1.scaffold79.6
+SymbC1.scaffold79.7
+SymbC1.scaffold790.2
+SymbC1.scaffold790.8
+SymbC1.scaffold793.3	K03235
+SymbC1.scaffold7939.2
+SymbC1.scaffold7940.1
+SymbC1.scaffold7952.3	K02984
+SymbC1.scaffold7969.3	K01190
+SymbC1.scaffold797.1
+SymbC1.scaffold797.8
+SymbC1.scaffold7980.1
+SymbC1.scaffold7995.2	K04078
+SymbC1.scaffold7996.1
+SymbC1.scaffold7997.1
+SymbC1.scaffold800.2	K08956
+SymbC1.scaffold8028.1
+SymbC1.scaffold8039.2	K12823
+SymbC1.scaffold805.7
+SymbC1.scaffold8069.2	K02377
+SymbC1.scaffold808.7
+SymbC1.scaffold8083.1	K11262
+SymbC1.scaffold8098.2
+SymbC1.scaffold81.2	K02372
+SymbC1.scaffold8113.1	K00451
+SymbC1.scaffold8116.1
+SymbC1.scaffold814.2
+SymbC1.scaffold8142.1	K04487
+SymbC1.scaffold8149.2	K26403
+SymbC1.scaffold8167.1
+SymbC1.scaffold8170.2
+SymbC1.scaffold8181.1
+SymbC1.scaffold8186.5	K00793
+SymbC1.scaffold819.2	K02934
+SymbC1.scaffold8198.4	K00826
+SymbC1.scaffold8199.2
+SymbC1.scaffold8202.5
+SymbC1.scaffold822.3
+SymbC1.scaffold822.8	K03064
+SymbC1.scaffold8222.1	K03234
+SymbC1.scaffold8223.2
+SymbC1.scaffold8225.1
+SymbC1.scaffold824.2
+SymbC1.scaffold826.3
+SymbC1.scaffold8281.2
+SymbC1.scaffold8323.2	K01834
+SymbC1.scaffold8353.2	K02133
+SymbC1.scaffold8361.1
+SymbC1.scaffold8421.1
+SymbC1.scaffold8429.2
+SymbC1.scaffold844.13
+SymbC1.scaffold844.6
+SymbC1.scaffold8457.1
+SymbC1.scaffold8498.3
+SymbC1.scaffold8502.1
+SymbC1.scaffold8503.1
+SymbC1.scaffold8591.4
+SymbC1.scaffold8623.1
+SymbC1.scaffold8626.4	K00967
+SymbC1.scaffold8663.1
+SymbC1.scaffold8681.2
+SymbC1.scaffold869.8
+SymbC1.scaffold87.36	K03695
+SymbC1.scaffold872.2
+SymbC1.scaffold8786.2	K10866
+SymbC1.scaffold879.12
+SymbC1.scaffold879.5	K01135
+SymbC1.scaffold879.8
+SymbC1.scaffold879.9
+SymbC1.scaffold8790.1
+SymbC1.scaffold880.1
+SymbC1.scaffold882.5
+SymbC1.scaffold885.11
+SymbC1.scaffold885.12	K05349
+SymbC1.scaffold8877.1
+SymbC1.scaffold8877.4
+SymbC1.scaffold888.1
+SymbC1.scaffold888.3
+SymbC1.scaffold8895.3
+SymbC1.scaffold8905.3
+SymbC1.scaffold894.5	K13525
+SymbC1.scaffold8952.2
+SymbC1.scaffold900.5
+SymbC1.scaffold901.2
+SymbC1.scaffold9016.4	K00819
+SymbC1.scaffold9018.2
+SymbC1.scaffold9021.1
+SymbC1.scaffold903.1	K24205
+SymbC1.scaffold904.2
+SymbC1.scaffold91.16	K00011
+SymbC1.scaffold91.18
+SymbC1.scaffold91.22
+SymbC1.scaffold91.5
+SymbC1.scaffold9100.1
+SymbC1.scaffold911.12	K03462
+SymbC1.scaffold911.14	K06944
+SymbC1.scaffold911.5
+SymbC1.scaffold9111.1	K00927
+SymbC1.scaffold914.5
+SymbC1.scaffold9146.1
+SymbC1.scaffold9151.3
+SymbC1.scaffold917.7	K02989
+SymbC1.scaffold9170.2
+SymbC1.scaffold92.14
+SymbC1.scaffold92.3
+SymbC1.scaffold922.4
+SymbC1.scaffold9245.1	K02939
+SymbC1.scaffold9275.1
+SymbC1.scaffold929.1
+SymbC1.scaffold930.4
+SymbC1.scaffold9313.1	K11836
+SymbC1.scaffold9320.1	K03283
+SymbC1.scaffold935.5
+SymbC1.scaffold936.5
+SymbC1.scaffold9367.1	K17086
+SymbC1.scaffold9376.1
+SymbC1.scaffold938.8
+SymbC1.scaffold939.3	K02936
+SymbC1.scaffold9398.1
+SymbC1.scaffold9406.2	K00166
+SymbC1.scaffold9427.1
+SymbC1.scaffold9459.1
+SymbC1.scaffold947.18	K11096
+SymbC1.scaffold947.3
+SymbC1.scaffold95.12
+SymbC1.scaffold950.8
+SymbC1.scaffold950.9
+SymbC1.scaffold9502.1
+SymbC1.scaffold9506.2	K03231
+SymbC1.scaffold9532.1
+SymbC1.scaffold958.4
+SymbC1.scaffold96.4	K08675
+SymbC1.scaffold960.9	K21456
+SymbC1.scaffold9600.3
+SymbC1.scaffold9605.4
+SymbC1.scaffold961.2
+SymbC1.scaffold965.7
+SymbC1.scaffold9664.2
+SymbC1.scaffold9664.3
+SymbC1.scaffold9671.2	K00600
+SymbC1.scaffold9684.1	K02641
+SymbC1.scaffold9707.1
+SymbC1.scaffold9709.1	K00381
+SymbC1.scaffold976.2
+SymbC1.scaffold976.8
+SymbC1.scaffold976.9	K00140
+SymbC1.scaffold98.6
+SymbC1.scaffold981.6
+SymbC1.scaffold981.8
+SymbC1.scaffold9816.1	K25877
+SymbC1.scaffold9836.1
+SymbC1.scaffold984.2
+SymbC1.scaffold986.3	K07901
+SymbC1.scaffold986.4	K08738
+SymbC1.scaffold986.6	K03246
+SymbC1.scaffold9867.1
+SymbC1.scaffold989.4
+SymbC1.scaffold9900.1
+SymbC1.scaffold9939.3
+SymbC1.scaffold9940.1
+SymbC1.scaffold995.3	K00106
+SymbC1.scaffold9954.1
+SymbC1.scaffold9955.1	K01802

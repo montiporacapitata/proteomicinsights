@@ -1,0 +1,72 @@
+---
+title: "BlastKOALA"
+author: "Permentier"
+date: "2024-12-13"
+output: html_document
+---
+
+In this step, I have annotated the sequences using BlastKOALA (reference GENES dataset to be searched: Eukaryotes).
+
+# Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+})
+```
+
+# Process the BlastKOALA-outputs
+
+Load the protein data, categorized by organism.
+```{r}
+pg <- read.csv("E:/PhD_YEAR4/Proteomics/5. Assign organism/pg_matrix_wide_organism.csv") %>%
+  select(Protein_group,Organism)
+dim(pg)
+colnames(pg)
+```
+
+Read the BlastKOALA output for the symbiont sequences.
+```{r}
+koala_symb <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/symb_user_ko_definition.txt",sep='\t') %>%
+  select(-c(X1,X2,X3)) %>%
+  mutate(Koala_ko = ifelse(Koala_ko == "",NA,Koala_ko),
+         Koala_definition = ifelse(Koala_definition == "",NA,Koala_definition)) %>%
+  filter(!(is.na(Koala_ko) | is.na(Koala_definition)))
+# Annotation success
+paste(dim(koala_symb)[1],'/',dim(pg %>% filter(Organism == "Montipora capitata"))[1])
+paste(round(dim(koala_symb)[1]/dim(pg %>% filter(Organism == "Montipora capitata"))[1]*100,2),"%")
+colnames(koala_symb)
+```
+
+Read the BlastKOALA output for the coral sequences.
+```{r}
+koala_Mcap <- read.csv("E:/PhD_YEAR4/Proteomics/6. Biological annotation/Mcap_user_ko_definition.txt",sep='\t') %>%
+  select(-c(X1,X2,X3)) %>%
+  mutate(Koala_ko = ifelse(Koala_ko == "",NA,Koala_ko),
+         Koala_definition = ifelse(Koala_definition == "",NA,Koala_definition)) %>%
+  filter(!(is.na(Koala_ko) | is.na(Koala_definition)))
+# Annotation success
+paste(dim(koala_Mcap)[1],'/',dim(pg %>% filter(Organism == "Montipora capitata"))[1])
+paste(round(dim(koala_Mcap)[1]/dim(pg %>% filter(Organism == "Montipora capitata"))[1]*100,2),"%")
+colnames(koala_Mcap)
+```
+
+Combine.
+```{r}
+pg_koala <- rbind(koala_Mcap,koala_symb)
+```
+
+# Result
+
+Write to file.
+```{r}
+write.csv(pg_koala,"pg_koala.csv",row.names=FALSE)
+```
+
+# References
+
+BlastKOALA reference:
+
+Kanehisa, M., Sato, Y., and Morishima, K.; BlastKOALA and GhostKOALA: KEGG tools for functional characterization of genome and metagenome sequences. J. Mol. Biol. 428, 726-731 (2016). [pubmed] [pdf]

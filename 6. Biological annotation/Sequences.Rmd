@@ -1,0 +1,90 @@
+---
+title: "Sequences"
+author: "Permentier"
+date: "2024-12-02"
+output: html_document
+---
+
+# Libraries
+
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+})
+```
+
+# Load and protein data, categorized by organism, and the sequence database
+
+Load the protein data, categorized by organism.
+```{r}
+pg_matrix_wide_organism <- read.csv("C:/Users/trist/OneDrive/Desktop/Research/Proteomics/Analysis/5. Assign organism/pg_matrix_wide_organism.csv")
+dim(pg_matrix_wide_organism)
+colnames(pg_matrix_wide_organism)
+```
+
+Load the sequence database.
+```{r}
+sequence_DB <- read.csv("C:/Users/trist/OneDrive/Desktop/Research/Proteomics/Analysis/3. Sequence database/sequence_database.csv")
+dim(sequence_DB)
+colnames(sequence_DB)
+```
+
+# Create FASTA files to be annotated
+
+Add sequence to protein groups that contain only one protein.
+```{r}
+to_annotate <- pg_matrix_wide_organism %>%
+  filter(Protein_group_N == 1) %>%
+  select(Protein_group,Organism)
+dim(to_annotate)
+colnames(to_annotate)
+```
+M. capitata:
+```{r}
+to_annotate_Mcap <- to_annotate %>%
+  filter(Organism == "Montipora capitata") %>%
+  select(-Organism) %>%
+  mutate(FASTA_header = Protein_group) %>%
+  left_join(sequence_DB %>% select(-Organism),by="FASTA_header")
+# Number of proteins
+paste(dim(to_annotate_Mcap)[1],'/',dim(pg_matrix_wide_organism %>% filter(Organism == "Montipora capitata"))[1])
+# Is the sequence known for every selected protein?
+!any(is.na(to_annotate_Mcap$Sequence))
+```
+
+Cladocopium:
+```{r}
+to_annotate_symb <- to_annotate %>%
+  filter(Organism == "Cladocopium") %>%
+  select(-Organism) %>%
+  left_join(sequence_DB %>%
+              mutate(Protein_group = sub(" .*", "", FASTA_header)) %>%
+              select(-Organism),by="Protein_group")
+# Number of proteins
+paste(dim(to_annotate_symb)[1],'/',dim(pg_matrix_wide_organism %>% filter(Organism == "Cladocopium"))[1])
+# Is the sequence known for every selected protein?
+!any(is.na(to_annotate_symb$Sequence))
+```
+
+# Write FASTA files
+
+Total number of sequences that will be annotated:
+```{r}
+paste(dim(to_annotate_Mcap)[1] + dim(to_annotate_symb)[1],
+      '/',
+      dim(pg_matrix_wide_organism %>% filter(Organism != "cRAP"))[1])
+```
+
+Write to FASTA files.
+```{r}
+writeLines(paste(paste('>',to_annotate_Mcap$FASTA_header,sep=""),
+                 to_annotate_Mcap$Sequence, sep = "\n"),
+           "to_annotate_Mcap.fasta")
+writeLines(paste(paste('>',to_annotate_symb$FASTA_header,sep=""),
+                 to_annotate_symb$Sequence, sep = "\n"),
+           "to_annotate_symb.fasta")
+```
+
+
