@@ -1,0 +1,44 @@
+ID,Ontology,QuickGO
+GO:0003723,molecular_function,RNA binding
+GO:0006749,biological_process,glutathione metabolic process
+GO:0003729,molecular_function,mRNA binding
+GO:0071013,cellular_component,catalytic step 2 spliceosome
+GO:1990904,cellular_component,ribonucleoprotein complex
+GO:0000398,biological_process,"mRNA splicing, via spliceosome"
+GO:0016528,cellular_component,sarcoplasm
+GO:0006508,biological_process,proteolysis
+GO:0090103,biological_process,cochlea morphogenesis
+GO:0016607,cellular_component,nuclear speck
+GO:0048014,biological_process,Tie signaling pathway
+GO:0006397,biological_process,mRNA processing
+GO:0016887,molecular_function,ATP hydrolysis activity
+GO:0019894,molecular_function,kinesin binding
+GO:0005178,molecular_function,integrin binding
+GO:0005730,cellular_component,nucleolus
+GO:0005743,cellular_component,mitochondrial inner membrane
+GO:0005794,cellular_component,Golgi apparatus
+GO:0062023,cellular_component,collagen-containing extracellular matrix
+GO:0002080,cellular_component,acrosomal membrane
+GO:0005604,cellular_component,basement membrane
+GO:0005615,cellular_component,extracellular space
+GO:0005681,cellular_component,spliceosomal complex
+GO:0017147,molecular_function,Wnt-protein binding
+GO:0005874,cellular_component,microtubule
+GO:0005813,cellular_component,centrosome
+GO:0005509,molecular_function,calcium ion binding
+GO:0005576,cellular_component,extracellular region
+GO:0005581,cellular_component,collagen trimer
+GO:0042393,molecular_function,histone binding
+GO:0031012,cellular_component,extracellular matrix
+GO:0006364,biological_process,rRNA processing
+GO:0098640,molecular_function,integrin binding involved in cell-matrix adhesion
+GO:0008217,biological_process,regulation of blood pressure
+GO:0001525,biological_process,angiogenesis
+GO:0050660,molecular_function,flavin adenine dinucleotide binding
+GO:0008017,molecular_function,microtubule binding
+GO:0071711,biological_process,basement membrane organization
+GO:0007155,biological_process,cell adhesion
+GO:0010572,biological_process,positive regulation of platelet activation
+GO:0007338,biological_process,single fertilization
+GO:0009897,cellular_component,external side of plasma membrane
+GO:0008380,biological_process,RNA splicing

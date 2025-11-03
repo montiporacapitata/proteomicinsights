@@ -1,0 +1,208 @@
+---
+title: "Montipora_capitata_up_BP"
+author: "Permentier"
+date: "2025-01-09"
+output: html_document
+---
+
+# Libraries and load data
+
+Libraries
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(topGO)
+})
+```
+
+# Parameters
+
+GO-term Over-Representation Analysis (ORA) assesses the enrichment of functional categories (GO terms) in a gene list compared to a background list. It compares the GO terms that are found in the list compared to what is expected by chance.
+
+Parameters that will be used in this analysis: which functional categories (param_ontology) for which organism (param_organism) and for which proteins (param_up: up --> up-regulated in high light, down --> up-regulated in low light) will be analyzed in this file?
+```{r}
+param_organism = "Montipora capitata"
+param_abundance = "up"
+param_ontology = "BP" #BP,MF,CC
+```
+
+We will name this analysis according to the specified parameters.
+```{r}
+analysis_name <- paste(param_organism,param_abundance,param_ontology,sep="_")
+analysis_name <- gsub(" ","_",analysis_name)
+analysis_name
+```
+
+# Data preparation
+
+Load annotated protein data.
+```{r}
+prot_GO <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/8. Volcano plots/pg_DAP_annotated.csv") %>%
+  filter(Organism == param_organism) %>%
+  dplyr::rename(name = Protein_group,
+                GOs = UP_Gene_Ontology_IDs) %>%
+  mutate(interest = as.numeric(Abundance == param_abundance))
+dim(prot_GO)
+colnames(prot_GO)
+```
+
+How many proteins have been annotated with GO terms for this species?
+```{r}
+N <- nrow(prot_GO %>% filter(!is.na(GOs)))
+Total <- nrow(prot_GO)
+paste(N,"/",Total)
+paste(round(N/Total*100,2),"%")
+```
+
+How many proteins of interest have been annotated with GO terms?
+```{r}
+N <- nrow(prot_GO %>% filter(!is.na(GOs),interest==1))
+Total <- nrow(prot_GO %>% filter(interest==1))
+paste(N,"/",Total)
+paste(round(N/Total*100,2),"%")
+```
+
+```{r}
+prot_GO %>%
+  filter(Organism == param_organism,
+         interest == 1) %>%
+  dplyr::select(name,UP_X,GOs)
+```
+
+Which proteins are we calling interesting?
+```{r}
+prot_GO %>%
+  filter(interest == 1)
+```
+
+What are their names in UniProt (UP_X)?
+```{r}
+prot_GO %>% 
+  filter(interest == 1) %>%
+  pull(UP_X)
+```
+
+# GO-term Over-Representation Analysis (ORA)
+
+Re-format data: create proteins - interest vector.
+```{r}
+proteins_interest <- setNames(prot_GO$interest,
+                     prot_GO$name)
+head(proteins_interest)
+length(proteins_interest)
+```
+
+Re-format data: pair GO-terms with proteins and create proteins to GOs list.
+```{r}
+# This dataframe contains every protein - GO term pair
+GO_prot <- prot_GO %>%
+  separate_rows(GOs, sep = ";") %>%
+  dplyr::select(name,UP_X,interest,GOs)
+# This list contains all GO terms for every protein
+proteins_GOs <- split(GO_prot$GOs,GO_prot$name)
+head(proteins_GOs)
+length(proteins_GOs)
+```
+
+Make sure both vectors overlap and that all proteins of interest have been assigned GO terms.
+```{r}
+# Overlap total
+length(intersect(names(proteins_interest), names(proteins_GOs)))
+# Overlap interest
+sum(names(proteins_interest[proteins_interest == 1]) %in% names(proteins_GOs))
+```
+
+Create GOdata object. This object holds all the necessary information for the analysis. Less proteins than the total amount of proteins that has been annotated with GO terms can be annotated with GO terms of the specified ontology.
+```{r}
+GO_data <- new("topGOdata",
+              description = analysis_name,
+              ontology = param_ontology,
+              allGenes = proteins_interest,
+              geneSelectionFun = function(x) x == 1,
+              annot = annFUN.gene2GO,
+              gene2GO = proteins_GOs)
+```
+
+TopGo calls the genes of interest significant genes. Not every protein of interest is feasible for analysis (unable to map protein to specified ontology?)
+```{r}
+prot_interesting <- prot_GO %>%
+  filter(interest == 1) %>%
+  mutate(feasible = name %in% sigGenes(GO_data)) %>%
+  filter(feasible) %>%
+  dplyr::select(name,UP_X,interest,feasible,GOs)
+prot_interesting
+```
+
+Perform enrichment test. The argument "weight01" is to reduce the influence of parent-child relationships in GO. GO terms aren't tested independently: it adjusts p-values by looking at the GO hierarchy and pruning "less informative" terms. This helps avoid bias toward general, high-level GO terms. The p-values will still have to be corrected for multiple testing afterwards.
+```{r}
+GO_test <- runTest(GO_data, algorithm = "weight01", statistic = "fisher")
+GO_test
+```
+
+We need this data frame to match the GO term results to proteins of interest.
+```{r}
+GO_proteins <- prot_GO %>%
+  filter(name %in% sigGenes(GO_data)) %>%
+  dplyr::rename(GO.ID = GOs) %>%
+  separate_rows(GO.ID, sep = ";") %>%
+  group_by(GO.ID) %>%
+  summarise(Proteins_UP_x = paste(unique(UP_X), collapse = ";"),
+            Proteins_name = paste(unique(name), collapse = ";"))
+```
+
+Cyclic graph of GO terms.
+```{r}
+pdf(paste(analysis_name,'.pdf',sep=""))
+graph_plot <- showSigOfNodes(GO_data, score(GO_test), firstSigNodes = 5, useInfo = "all")
+dev.off()
+showSigOfNodes(GO_data, score(GO_test), firstSigNodes = 5, useInfo = "all")
+```
+
+Significant terms. The p-values don't need to be adjusted for multiple testing because, according to the topGO package, weight and elim  compute the p-value of a GO term conditioned on the neighboring terms. The tests are therefore not independent and the multiple testing theory does not directly apply. The authors like to interpret the p-values returned by these methods as corrected or not affected by multiple testing.
+```{r}
+prot_map <- setNames(prot_interesting$UP_X, prot_interesting$name)
+term_test_result <- GenTable(
+  GO_data,
+  weight01Fisher = GO_test,
+  orderBy = "weight01Fisher") %>%
+  rowwise() %>%
+  mutate(
+    Proteins_UP_X = paste(
+      prot_map[
+        intersect(
+          genesInTerm(GO_data)[[GO.ID]],
+          names(prot_map)
+        )
+      ],
+      collapse = ";"
+    ),
+    Protein_name = paste(
+      intersect(
+        genesInTerm(GO_data)[[GO.ID]],
+        prot_interesting %>% pull(name)
+      ),
+      collapse = ";"
+    ),
+    Organism = param_organism,
+    Abundance = param_abundance,
+    Ontology = param_ontology
+  ) %>%
+  ungroup() %>%
+  dplyr::rename(p = weight01Fisher) %>%
+  filter(p < 0.05)
+term_test_result
+```
+
+# Output
+
+Write to table.
+```{r}
+write.csv(term_test_result,paste(analysis_name,".csv",sep=""),row.names=FALSE)
+```
+
+
+
+
+

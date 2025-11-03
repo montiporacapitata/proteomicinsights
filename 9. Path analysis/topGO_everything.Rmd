@@ -1,0 +1,248 @@
+---
+title: "topGO_everything"
+author: "Permentier"
+date: "2025-01-09"
+output: html_document
+---
+
+# Libraries and load data
+
+Libraries
+```{r}
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(tidyr)
+  library(tibble)
+  library(topGO)
+  library(ggplot2)
+})
+
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+# The following initializes usage of Bioc devel
+#BiocManager::install(version='devel')
+
+#if (!require("BiocManager", quietly = TRUE))
+ #   install.packages("BiocManager")
+
+#BiocManager::install("GO.db")
+
+#BiocManager::install("topGO", force = TRUE)
+
+```
+
+# ORA function
+
+This function is what Montipora_capitata_up_BP.Rmd does, so that those steps can implemented for both organisms, both differential abundance categories and for BP, MF and CC ontologies.
+```{r}
+run_GO_analysis <- function(param_GO, param_organism, param_abundance, param_ontology) {
+  
+  # Prepare GO data
+  param_GO <- param_GO %>% 
+          filter(Organism == param_organism) %>%
+          mutate(interest = as.numeric(Abundance == param_abundance))
+  
+  # Create named vector of interest
+  proteins_interest <- setNames(param_GO$interest, param_GO$name)
+  
+  # Prepare gene-to-GO mapping
+  GO_prot <- param_GO %>%
+    separate_rows(GOs, sep = ";") %>%
+    dplyr::select(name, UP_X, interest, GOs)
+  
+  proteins_GOs <- split(GO_prot$GOs, GO_prot$name)
+  
+  # Create topGOdata object
+  GO_data <- new("topGOdata",
+                 ontology = param_ontology,
+                 allGenes = proteins_interest,
+                 geneSelectionFun = function(x) x == 1,
+                 annot = annFUN.gene2GO,
+                 gene2GO = proteins_GOs)
+  
+  # Filter interesting proteins
+  prot_interesting <- param_GO %>%
+    filter(interest == 1) %>%
+    mutate(feasible = name %in% sigGenes(GO_data)) %>%
+    filter(feasible) %>%
+    dplyr::select(name, UP_X, interest, feasible, GOs)
+  
+  # Run Fisher test
+  GO_test <- runTest(GO_data, algorithm = "weight01", statistic = "fisher")
+  
+  # Get mapping of GO terms to proteins
+  GO_proteins <- param_GO %>%
+    filter(name %in% sigGenes(GO_data)) %>%
+    dplyr::rename(GO.ID = GOs) %>%
+    separate_rows(GO.ID, sep = ";") %>%
+    group_by(GO.ID) %>%
+    summarise(
+      Proteins_UP_x = paste(unique(UP_X), collapse = ";"),
+      Proteins_name = paste(unique(name), collapse = ";"),
+      .groups = "drop"
+    )
+  
+  # Prepare term test result table
+  prot_map <- setNames(prot_interesting$UP_X, prot_interesting$name)
+  
+  term_test_result <- GenTable(
+    GO_data,
+    weight01Fisher = GO_test,
+    orderBy = "weight01Fisher"
+  ) %>%
+    rowwise() %>%
+    mutate(
+      Proteins_UP_X = paste(
+        prot_map[
+          intersect(
+            genesInTerm(GO_data)[[GO.ID]],
+            names(prot_map)
+          )
+        ],
+        collapse = ";"
+      ),
+      Protein_name = paste(
+        intersect(
+          genesInTerm(GO_data)[[GO.ID]],
+          prot_interesting %>% pull(name)
+        ),
+        collapse = ";"
+      ),
+      Organism = param_organism,
+      Abundance = param_abundance,
+      Ontology = param_ontology
+    ) %>%
+    ungroup() %>%
+    dplyr::rename(p = weight01Fisher)
+  
+  return(term_test_result)
+}
+```
+
+# ORA analysis
+
+Here we run this function for all parameter combinations:
+```{r}
+organisms <- c("Montipora capitata", "Cladocopium")
+abundances <- c("down", "up")
+ontologies <- c("BP", "CC", "MF")
+```
+
+Data.
+```{r}
+prot_GO <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/8. Volcano plots/pg_DAP_annotated.csv") %>%
+  dplyr::rename(name = Protein_group,
+                GOs = UP_Gene_Ontology_IDs)
+```
+
+Initialize empty list to collect results
+```{r}
+all_results <- list()
+```
+
+Loop through combinations.
+```{r}
+for (param_organism in organisms) {
+  for (param_abundance in abundances) {
+    for (param_ontology in ontologies) {
+      
+      result <- run_GO_analysis(
+        param_GO = prot_GO,
+        param_organism = param_organism,
+        param_abundance = param_abundance,
+        param_ontology = param_ontology
+      )
+      
+      all_results[[length(all_results) + 1]] <- result
+    }
+  }
+}
+ORA_results <- do.call(rbind, all_results) %>%
+  mutate(p = as.numeric(p))
+ORA_results
+```
+
+# Plot results
+
+Clean results.
+```{r}
+ORA_results_clean <- ORA_results %>%
+  mutate(Ontology = factor(Ontology, levels = c("BP", "CC", "MF")),
+         Ratio = Significant/Annotated) %>%
+  filter(p<0.05)
+ORA_results_clean
+```
+
+Plot.
+```{r}
+library(cowplot)
+library(ggrepel)
+ORA_results_clean %>%
+  filter(Organism == "Montipora capitata") %>%
+  ggplot(aes(y = reorder(Term, Significant), x = Significant)) +
+  geom_col(aes(fill=Ontology), alpha = .7) +
+  scale_fill_manual(values = c("forestgreen", "darkorange2",  "royalblue2"))+
+  labs(y = "GO Term",
+       x = "Number of more abundant proteins",
+       title = "") +
+  geom_text_repel(aes(label = ifelse(Abundance != "no difference", Proteins_UP_X, "")),
+                 size = 2.5) +
+  theme_cowplot(10)+
+  theme(panel.grid = element_blank()) +
+  xlim(0,3) +
+  facet_grid(Ontology~., scales="free", space = "free")+
+  facet_grid(Abundance~., scales="free", space = "free")
+
+```
+
+```{r}
+ORA_results_clean %>%
+  filter(Organism == "Montipora capitata",
+         Abundance == "up") %>%
+  ggplot(aes(y = reorder(Term, Significant), x = Significant)) +
+  geom_col(aes(fill=p)) +
+  labs(y = "GO Term",
+       x = "Number of DAP proteins",
+       title = "Significant up-regulation under HL in M. capitata") +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  xlim(0,4) +
+  facet_grid(Ontology~., scales="free", space = "free")
+```
+
+```{r}
+ORA_results_clean %>%
+  filter(Organism == "Cladocopium",
+         Abundance == "down") %>%
+  ggplot(aes(y = reorder(Term, Significant), x = Significant)) +
+  geom_col(aes(fill=p)) +
+  labs(y = "GO Term",
+       x = "Number of DAP proteins",
+       title = "Significant up-regulation under LL in Cladocopium") +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  xlim(0,4) +
+  facet_grid(Ontology~., scales="free", space = "free")
+```
+
+```{r}
+ORA_results_clean %>%
+  filter(Organism == "Cladocopium",
+         Abundance == "up") %>%
+  ggplot(aes(y = reorder(Term, Significant), x = Significant)) +
+  geom_col(aes(fill=p)) +
+  labs(y = "GO Term",
+       x = "Number of DAP proteins",
+       title = "Significant up-regulation under HL in Cladocopium") +
+  theme_minimal() +
+  theme(panel.grid = element_blank()) +
+  xlim(0,4) +
+  facet_grid(Ontology~., scales="free", space = "free")
+```
+
+# Output table
+
+
+
+

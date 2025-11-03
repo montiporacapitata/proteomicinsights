@@ -1,0 +1,166 @@
+---
+title: "GSEA"
+author: "Tristan Permentier"
+date: "2025-03-31"
+output: html_document
+---
+
+# Library
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(clusterProfiler)
+library(ggplot2)
+library(GO.db)
+library(gridExtra)
+
+#BiocManager::install("clusterProfiler", force = TRUE)
+
+#BiocManager::install("HDO.db", force = TRUE)
+```
+
+# Data preparation
+
+Load annotated protein data.
+```{r}
+prot_GO <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/8. Volcano plots/pg_DAP_annotated.csv") %>%
+   filter(Organism == "Montipora capitata") %>%
+   dplyr::rename(name = Protein_group,
+          GO = UP_Gene_Ontology_IDs)
+dim(prot_GO)
+colnames(prot_GO)
+```
+
+TERM2GENE: a data.frame that links terms to genes.
+```{r}
+TERM2GENE <- prot_GO %>%
+  separate_rows(GO, sep = ";") %>%
+  dplyr::select(GO,name) %>%
+  #group_by(GO, name) %>% filter(row_number() == 1) %>% 
+  dplyr::rename(term = GO,
+         gene = name)
+TERM2GENE
+```
+
+TERM2NAME: a data.frame that links GO terms to their (human-readable) descriptions.
+```{r}
+goterms <- Term(GOTERM)
+TERM2NAME <- data.frame("GOID"=names(goterms),
+                        "term"=goterms)
+TERM2NAME
+```
+
+
+Ranked gene list. Needs to be named and sorted in decreasing order.
+```{r}
+gene_list <- prot_GO$log2FC
+names(gene_list) <- prot_GO$name
+gene_list <- sort(gene_list,decreasing=TRUE)
+head(gene_list)
+```
+
+# GSEA analysis
+
+Instead of focusing on individual proteins that are strongly up/down-regulated, GSEA asks: are whole groups of related proteins behaving differently as a group between treatments?
+
+This is useful because many proteins change slightly (insignificantly), but together they might tell a strong (significant) biological story.This avoids having to choose arbitrary cutoffs (like log2FC > 1 or p < 0.05) to include/exclude individual proteins for analysis.
+
+Run GSEA.
+```{r}
+gsea_result <- GSEA(
+  geneList     = gene_list,
+  TERM2GENE    = TERM2GENE,
+  pvalueCutoff = 0.05,
+  verbose      = TRUE, #Print progress messages
+  eps = 0 # More accurate very small p values
+)
+```
+
+This is the result as a data frame.
+```{r}
+gsea_df <- as.data.frame(gsea_result)
+gsea_df
+```
+
+This is how the result can be interpreted. ES is not useful for comparing between terms: use NES instead (normalized for gene set size).
+```{r}
+gsea_df_filtered <- gsea_df %>%
+  filter(p.adjust < 0.05) %>%
+  mutate(light = ifelse(NES>0,"HL","LL"),
+         ID = as.numeric(gsub("GO:","",ID))) %>%
+  dplyr::select(-Description)
+
+gsea_df_filtered
+```
+
+I have looked them up using QuickGO.
+```{r}
+QGO <- read.csv("E:/PhD_Organized/I. Science/D. Proteomics/9. ORA/QuickGO.csv") %>%
+  mutate(ID = as.numeric(gsub("GO:","",ID))) %>%
+  dplyr::rename(Description = QuickGO)
+QGO
+```
+
+Verify if all GO terms in the GSEA result have been looked up.
+```{r}
+# Does every GO term have a match?
+paste(as.character(length(intersect(QGO$ID,unique(gsea_df_filtered$ID)))),
+      as.character(length(unique(gsea_df_filtered$ID))),
+      sep = "/")
+```
+
+Here I add this information to the GSEA result.
+```{r}
+gsea_filtered_annotated <- gsea_df_filtered %>%
+  left_join(QGO,by="ID") %>% group_by(ID) %>% 
+  dplyr::select(ID,Ontology,Description,everything())
+gsea_filtered_annotated
+```
+
+#Plot
+```{r}
+#remove one GO term that had a duplicate entry
+gsea_filtered_annotated <- gsea_filtered_annotated[-5,]
+
+ggplot(gsea_filtered_annotated, aes(x =log(p.adjust),y = setSize))+geom_point()+geom_vline(xintercept=log(0.01), color = "red", lty = 2, lwd = 1) + ylab("Number of proteins")
+
+ggplot(gsea_filtered_annotated, aes(x =log(p.adjust)))+geom_density()+geom_vline(xintercept=log(0.01), color = "red", lty = 2, lwd = 1) + ylab("Density")
+
+a <- gsea_filtered_annotated %>%
+  #filter(light=="HL") %>%
+  mutate(light = factor(light, levels = c("LL", "HL"))) %>% 
+  ggplot(aes(x = NES, y = reorder(Description,NES))) +
+  geom_point(aes(size = setSize, color = Ontology)) +
+  scale_color_manual(values = c("forestgreen", "darkorange2", "royalblue2"))+
+  #scale_color_manu(low = "purple", high = "seagreen", name = "Adjusted p-value") +
+  labs(
+    x = "Normalized Enrichment Score (NES)",
+    y = "GO Term",
+    size = "Gene Set Size"
+  ) +
+  theme_bw()+
+  facet_wrap(~light, scale = "free_x")
+a
+```
+
+Up-regulated in low light.
+```{r}
+b <- gsea_filtered_annotated %>%
+  filter(light=="LL") %>%
+  ggplot(aes(x = NES, y = reorder(Description,-NES))) +
+  geom_point(aes(size = setSize, color = Ontology)) +
+  #scale_color_gradient(low = "purple", high = "seagreen", name = "Adjusted p-value") +
+  labs(
+    x = "Normalized Enrichment Score (NES)",
+    y = "GO Term",
+    size = "Gene Set Size"
+  ) +
+  theme_minimal()
+b
+
+library(cowplot)
+plot_grid(a,b)
+
+```
